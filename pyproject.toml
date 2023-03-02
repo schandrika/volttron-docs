@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "volttron-docs"
+version = "0.1.0"
+description = "VOLTTRON documentation"
+authors = ["VOLTTRON Team <volttron@pnnl.gov>"]
+readme = "README.md"
+packages = [{include = "volttron-docs"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Sphinx = "^6.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
