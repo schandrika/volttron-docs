@@ -23,7 +23,7 @@ import yaml
 
 # -- Project information -----------------------------------------------------
 
-project = 'VOLTTRON'
+project = 'Eclipse VOLTTRON'
 copyright = '2022, The VOLTTRON Community'
 author = 'The VOLTTRON Community'
 
@@ -63,6 +63,10 @@ autosectionlabel_maxdepth = 5
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
+
+html_context = {
+    "display_github": False,  # Add 'Edit on Github' link instead of 'View page source'
+}
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
