@@ -265,7 +265,7 @@ def generate_volttron_docs(app):
 
     # Replace the target string
     filedata = filedata.replace('volttron-api/ops/*/modules', 'volttron-api/services/ops/**/README')
-    filedata = filedata.replace('volttron-api/services/*/modules', 'volttron-api/services/**/README')
+    filedata = filedata.replace('volttron-api/services/*/modules', 'volttron-api/services/core/**/README')
 
     # Write the file out again
     with open(index_rst, 'w') as file:
