@@ -1,7 +1,7 @@
 .. VOLTTRON documentation root file
 
 ==========================
-|VOLTTRON|  documentation! sphinx_hooks-v3api build
+|VOLTTRON|  documentation!
 ==========================
 
 |VOLTTRON Tagline|
