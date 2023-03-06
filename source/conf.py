@@ -16,33 +16,21 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
-import os
 import subprocess
-
-# from mock import Mock as MagicMock
-
-#
-# class Mock(MagicMock):
-#     @classmethod
-#     def __getattr__(cls, name):
-#             return Mock()
-
-#
-# autodoc_mock_imports = ['loadshape', 'numpy', 'sympy', 'xlrd', 'stomp', 'oadr2', 'pyodbc', 'lxml', 'pytest',
-#                         'pint', 'pandas', 'suds', 'paho', 'pymongo', 'bson', 'subprocess32', 'heaters', 'meters',
-#                         'hvac', 'blinds', 'vehicles']
+import sys
+import os
+import yaml
 
 # -- Project information -----------------------------------------------------
-
 
 project = 'VOLTTRON'
 copyright = '2022, The VOLTTRON Community'
 author = 'The VOLTTRON Community'
 
 # The short X.Y version
-version = '8.2'
+version = 'modular'
 # The full version, including alpha/beta/rc tags
-release = '8.2'
+release = 'modular'
 
 
 # -- General configuration ---------------------------------------------------
@@ -65,16 +53,13 @@ extensions = [
     # https://www.sphinx-doc.org/en/master/usage/extensions/autosectionlabel.html
     'sphinx.ext.autosectionlabel',
     # http://www.sphinx-doc.org/en/master/usage/extensions/todo.html
-    'sphinx.ext.todo',
-    'm2r2'
+    'sphinx.ext.todo'
 ]
 
 # prefix sections with the document so that we can cross link
 # sections from different pages.
 autosectionlabel_prefix_document = True
 autosectionlabel_maxdepth = 5
-
-todo_include_todos = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -115,7 +100,9 @@ html_theme = 'sphinx_rtd_theme'
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-html_theme_options = {}
+html_theme_options = {
+    'style_nav_header_background': '#0c5404',
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -217,87 +204,58 @@ def setup(app):
     :param app:
     """
     # app.connect('builder-inited', generate_apidoc)
-    app.connect('builder-inited', generate_volttron_docs)
+    app.connect('builder-inited', generate_agent_docs)
 
     # app.connect('build-finished', clean_api_rst)
-    app.connect('build-finished', clean_volttron_docs_rst)
+    app.connect('build-finished', clean_agent_docs_rst)
 
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
-vdocs_root = os.path.join(script_dir, "volttron-docs")
-vdocs_source_abs_path = os.path.join(vdocs_root, "docs/source")
-vagent_readme = os.path.join(script_dir, "volttron-api")
+agent_docs_root = os.path.join(script_dir, "agent-docs")
+
+def _read_config(filename):
+    data = {}
+    try:
+        with open(filename, 'r') as yaml_file:
+            data = yaml.safe_load(yaml_file)
+    except IOError as exc:
+        print("Error reading from file: {}".format(filename))
+        raise exc
+    except yaml.YAMLError as exc:
+        print("Yaml Error: {}".format(filename))
+        raise exc
+    return data
 
 
-def generate_volttron_docs(app):
-    import shutil
-    global script_dir, vdocs_root, vdocs_source_subdir, vdocs_source_abs_path, vagent_readme
-    volttron_version = "releases/8.2"
-    volttron_repo = "https://github.com/volttron/volttron"
-
-    subprocess.check_call(["git", "clone", "--no-checkout", volttron_repo, vdocs_root], cwd=script_dir)
-    subprocess.check_call(["git", "sparse-checkout", "set", "--no-cone", "docs/source/*", "docs/requirements.txt",
-                           '!conf.py', '!api_doc_config.yml', '!apidocs-templates'], cwd=vdocs_root)
-    subprocess.check_call(["git", "checkout", volttron_version], cwd=vdocs_root)
-    # mv everything from volttron/docs/source directory into this repo's source directory(i.e. dir of this conf.py)
-    shutil.copytree(vdocs_source_abs_path, script_dir, dirs_exist_ok=True)
-
-    # Grab readme files for core agents
-    os.mkdir(vagent_readme)
-    subprocess.check_call(["git", "clone", "--no-checkout", volttron_repo, "volttron-api"], cwd=script_dir)
-    subprocess.check_call(["git", "sparse-checkout", "set", "--no-cone",
-                           "services/core/**/README.md",
-                           "services/ops/**/README.md"], cwd=vagent_readme)
-    subprocess.check_call(["git", "checkout", volttron_version], cwd=vagent_readme)
-
-    # Remove unwanted agents
-    core_dir = os.path.join(vagent_readme, "services/core")
-    shutil.rmtree(os.path.join(core_dir, "DNP3Agent"), ignore_errors=True)
-    shutil.rmtree(os.path.join(core_dir, "MarketServiceAgent"), ignore_errors=True)
-    shutil.rmtree(os.path.join(core_dir, "OpenEISHistorian"), ignore_errors=True)
-    shutil.rmtree(os.path.join(core_dir, "ObixHistoryPublish"), ignore_errors=True)
-    shutil.rmtree(os.path.join(core_dir, "IEEE2030_5Agent"), ignore_errors=True)
-
-    # update index.rst to point to README.md instead of generated api-docs
-    index_rst = os.path.join(script_dir, 'index.rst')
-    with open(index_rst, 'r') as file:
-        filedata = file.read()
-
-    # Replace the target string
-    filedata = filedata.replace('volttron-api/ops/*/modules', 'volttron-api/services/ops/**/README')
-    filedata = filedata.replace('volttron-api/services/*/modules', 'volttron-api/services/**/README')
-
-    # Write the file out again
-    with open(index_rst, 'w') as file:
-        file.write(filedata)
+def generate_agent_docs(app):
+    os.makedirs(agent_docs_root)
+    agents_data = _read_config(filename=os.path.join(script_dir, "agent_versions.yml"))
+    repo_prefix = "https://github.com/eclipse-volttron/"
+    for agent_name in agents_data:
+        agent_repo = agents_data[agent_name].get("repo")
+        if not agent_repo:
+            agent_repo = repo_prefix + agent_name
+        subprocess.check_call(["git", "clone", "--no-checkout", agent_repo], cwd=agent_docs_root)
+        # for 1st version not doing api-docs. If doing api-docs do full checkout, install requirements, run api-docs
+        agent_clone_dir = os.path.join(agent_docs_root, agent_name)
+        docs_source_dir = agents_data[agent_name].get("docs_dir", "docs/source")
+        subprocess.check_call(["git", "sparse-checkout", "set", docs_source_dir], cwd=agent_clone_dir)
+        agent_version = agents_data[agent_name]["version"]
+        subprocess.check_call(["git", "checkout", agent_version], cwd=agent_clone_dir)
 
 
-def clean_volttron_docs_rst(app, exception):
+def clean_agent_docs_rst(app, exception):
     """
     Deletes folder containing all auto generated .rst files at the end of
     sphinx build immaterial of the exit state of sphinx build.
     :param app:
     :param exception:
     """
-    global vdocs_root, vdocs_source_abs_path, script_dir, vagent_readme
+    global agent_docs_root
     import shutil
-    copied_files = os.listdir(vdocs_source_abs_path)
-    for f in copied_files:
-        print(f"Cleanup: Removing file copied into {script_dir} {f}")
-        # remove everything that was copied from volttron docs/source to this scripts parent's dir
-        file_path = os.path.join(script_dir, f)
-        if os.path.isdir(file_path):
-            shutil.rmtree(file_path)
-        else:
-            os.remove(file_path)
-
-    if os.path.exists(vdocs_root):
-        print("Cleanup: Removing volttron docs clone directory {}".format(vdocs_root))
-        shutil.rmtree(vdocs_root)
-
-    if os.path.exists(vagent_readme):
-        print("Cleanup: Removing volttron api clone directory {}".format(vagent_readme))
-        shutil.rmtree(vagent_readme)
+    if os.path.exists(agent_docs_root):
+        print("Cleanup: Removing agent docs clone directory {}".format(agent_docs_root))
+        shutil.rmtree(agent_docs_root)
 
 # apidocs_base_dir = os.path.abspath(script_dir + "/volttron-api")
 # volttron_root = os.path.abspath(os.path.join(script_dir, "../.."))
