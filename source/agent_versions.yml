@@ -1,0 +1,15 @@
+#
+# Format
+#
+#<volttron-agent-name>:
+#    # optional path to repo.
+#    # if not provided default would be "https://github.com/eclipse-volttron/" + agent name(parent element)
+#    repo: https://github.com/schandrika/test_agent_docs
+#    # branch or tag that should get pulled. should be valid value to be used wtih git checkout. ex. branch, tag
+#    version: main
+#    # optional docs directory. defaults to "docs/source" under root
+#    docs_dir: docs/source
+
+volttron-sqlite-historian:
+    version: releases/0.2.0-rc
+
