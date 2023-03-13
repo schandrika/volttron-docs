@@ -63,11 +63,6 @@ autosectionlabel_maxdepth = 5
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
-#
-# html_context = {
-#     "check_meta": False,
-#     "display_github": False,  # Add 'Edit on Github' link instead of 'View page source'
-# }
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -104,10 +99,10 @@ html_theme = 'sphinx_rtd_theme'
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-#
-html_theme_options = {
-    'style_nav_header_background': '#0c5404',
-}
+# #
+# html_theme_options = {
+#     'style_nav_header_background': '#0c5404',
+# }
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

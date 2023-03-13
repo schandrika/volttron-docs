@@ -1,3 +1,18 @@
-h1 {
-    color: #0c5404 !important;
+/* left nav */
+.wy-side-nav-search{
+    background: #206050;
 }
+.wy-nav-side {
+    background:  #272525;
+}
+.caption-text {
+    color: #339980;
+}
+/* page content */
+h1 {
+    color: #206050 !important;
+}
+.rst-content .note .admonition-title {
+    background: #206050;
+}
+

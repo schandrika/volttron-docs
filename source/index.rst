@@ -1,8 +1,8 @@
 .. VOLTTRON documentation root file
 
-==========================
-|VOLTTRON|  documentation!
-==========================
+=========================
+|VOLTTRON|  documentation
+=========================
 
 |VOLTTRON Tagline|
 
@@ -36,15 +36,17 @@ Features
 - automatic data capture and retrieval through our :ref:`historian framework <Historian-Framework>`
 - An extensible :ref:`web framework <Web-Framework>` allowing users and services to securely connect to the platform
   from anywhere
+..
+
 - Capability to interface with simulation engines and applications to evaluate applications prior to deployment
 
 
-VOLTTRON™ is publicly available from `GitHub <https://github.com/volttron/volttron.git>`_. The project
-is supported by the U.S. Department of Energy and receives ongoing updates from a team of core developers at PNNL.  The
-VOLTTRON team encourages and appreciates community involvement including issues and pull requests on Github, meetings
-at our bi-weekly office-hours and on Slack. To be invited to office-hours or slack, please `send the team an email
-<volttron@pnnl.gov>`_.
-
+VOLTTRON™ is publicly available from `GitHub <https://github.com/eclipse-volttron/volttron-core.git>`_ and
+`PyPI <https://pypi.org/project/volttron/>`_. The project is supported by the U.S. Department of Energy and
+receives ongoing updates from a team of core developers at PNNL.  The VOLTTRON team encourages and appreciates
+community involvement including issues, pull requests, discussions on Github, meetings at our bi-weekly office-hours,
+and quaterly user meetings. To be invited to office-hours, please `send the team an email
+<volttron-dev@eclipse.org>`_.
 
 .. toctree::
    :caption: Introduction
@@ -66,16 +68,84 @@ at our bi-weekly office-hours and on Slack. To be invited to office-hours or sla
    platform-features/control/index
    platform-features/config-store/configuration-store
    platform-features/security/volttron-security
-   platform-features/web-api/introduction
+
+..
+   platform-features/web-api/introduction   -- this should get pulled in from external source
+
+.. toctree::
+   :caption: Agent Framework
+   :hidden:
+   :titlesonly:
+   :maxdepth: 1
+
+   agent-framework/agents-overview
+   agent-framework/platform-service-standardization
+
+.. toctree::
+   :caption: Developing in VOLTTRON
+   :hidden:
+   :titlesonly:
+   :maxdepth: 1
+
+   developing-volttron/community
+   developing-volttron/development-environment/index
+   developing-volttron/developing-agents/agent-development
+   developing-volttron/contributing-code
+   developing-volttron/contributing-documentation
+
+.. toctree::
+   :caption: Deploying VOLTTRON
+   :hidden:
+   :titlesonly:
+   :maxdepth: 1
+
+   deploying-volttron/platform-configuration
+   deploying-volttron/deployment-planning-options
+   deploying-volttron/single-machine
+   deploying-volttron/secure-deployment-considerations
+   deploying-volttron/linux-system-hardening
+   deploying-volttron/recipe-deployment
+
+.. toctree::
+   :caption: VOLTTRON Core Service Agents
+   :hidden:
+   :titlesonly:
+   :maxdepth: 2
+   :glob:
+
+   volttron-api/services/*/modules
+
+.. toctree::
+   :caption: VOLTTRON Core Operations Agents
+   :hidden:
+   :titlesonly:
+   :maxdepth: 2
+   :glob:
+
+   volttron-api/ops/*/modules
+
+.. toctree::
+   :caption: VOLTTRON Releases
+   :hidden:
+   :titlesonly:
+   :maxdepth: 1
+
+   Releases <volttron-topics/VOLTTRON-releases/index>
+
+..
+
+   volttron-topics/troubleshooting/index
+   volttron-topics/volttron-applications/index
 
 
 .. toctree::
-   :caption: Agent docs
+   :caption: Agent Documentation
    :hidden:
    :titlesonly:
    :maxdepth: 1
 
    SQLiteHistorian <agent-docs/volttron-sqlite-historian/docs/source/index>
+   Platform Driver <agent-docs/volttron-sqlite-historian/docs/source/index>
 
 
 Indices and tables
