@@ -29,7 +29,3 @@ Additional documentation related to VIP authentication and authorization is avai
 
    key-stores
    known-hosts-file
-..
-
-   agent-isolation-mode
-   non-auth-mode
