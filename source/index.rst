@@ -68,9 +68,7 @@ and quaterly user meetings. To be invited to office-hours, please `send the team
    platform-features/control/index
    platform-features/config-store/configuration-store
    platform-features/security/volttron-security
-
-..
-   platform-features/web-api/introduction   -- this should get pulled in from external source
+   external-docs/volttron-lib-web/docs/source/index
 
 .. toctree::
    :caption: Agent Framework
@@ -80,6 +78,7 @@ and quaterly user meetings. To be invited to office-hours, please `send the team
 
    agent-framework/agents-overview
    agent-framework/platform-service-standardization
+   external-docs/volttron-platform-driver/docs/source/index
 
 .. toctree::
    :caption: Developing in VOLTTRON
@@ -107,22 +106,13 @@ and quaterly user meetings. To be invited to office-hours, please `send the team
    deploying-volttron/recipe-deployment
 
 .. toctree::
-   :caption: VOLTTRON Core Service Agents
+   :caption: VOLTTRON Core Agents
    :hidden:
    :titlesonly:
    :maxdepth: 2
    :glob:
 
-   volttron-api/services/*/modules
-
-.. toctree::
-   :caption: VOLTTRON Core Operations Agents
-   :hidden:
-   :titlesonly:
-   :maxdepth: 2
-   :glob:
-
-   volttron-api/ops/*/modules
+   SQLiteHistorian <external-docs/volttron-sqlite-historian/docs/source/index>
 
 .. toctree::
    :caption: VOLTTRON Releases
@@ -137,15 +127,6 @@ and quaterly user meetings. To be invited to office-hours, please `send the team
    volttron-topics/troubleshooting/index
    volttron-topics/volttron-applications/index
 
-
-.. toctree::
-   :caption: Agent Documentation
-   :hidden:
-   :titlesonly:
-   :maxdepth: 1
-
-   SQLiteHistorian <agent-docs/volttron-sqlite-historian/docs/source/index>
-   Platform Driver <agent-docs/volttron-sqlite-historian/docs/source/index>
 
 
 Indices and tables
