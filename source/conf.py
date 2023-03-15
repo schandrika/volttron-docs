@@ -255,4 +255,4 @@ def clean_agent_docs_rst(app, exception):
     import shutil
     if os.path.exists(external_docs_root):
         print("Cleanup: Removing agent docs clone directory {}".format(external_docs_root))
-        #shutil.rmtree(external_docs_root)
+        shutil.rmtree(external_docs_root)
