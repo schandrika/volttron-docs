@@ -10,8 +10,13 @@
 #    # optional docs directory. defaults to "docs/source" under root
 #    docs_dir: docs/source
 
+volttron-lib-base-historian:
+    repo: https://github.com/schandrika/volttron-lib-base-historian
+    version: docs
+
 volttron-sqlite-historian:
-    version: releases/0.2.0-rc
+    repo: https://github.com/schandrika/volttron-sqlite-historian
+    version: docs
 
 volttron-actuator:
     repo: https://github.com/davidraker/volttron-actuator
