@@ -35,8 +35,8 @@ The platform includes some valuable services which can be leveraged by agents:
 In addition to services that are bundled as part of VOLTTRON core, the VOLTTRON development team also maintains several
 useful agent frameworks, services, and libraries that can be installed based on specific user requirements.
 
--  **Historian Framework**: Historian agents automatically collect data from a subset of topics on the message bus and store
-   them in a data store of choice. The
+-  **Historian Framework**: Historian agents automatically collect data from a subset of topics on the message bus and
+   store them in a data store of choice. The
    `base historian library <https://pypi.org/project/volttron-lib-base-historian/>`_
    has been developed to be fast and reliable, and to handle many common pitfalls of data collection over a network.
    A `SQLHistorian library <https://pypi.org/project/volttron-lib-sql-historian/>`_ provides a historian

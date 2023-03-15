@@ -79,6 +79,7 @@ and quaterly user meetings. To be invited to office-hours, please `send the team
    agent-framework/agents-overview
    agent-framework/platform-service-standardization
    external-docs/volttron-platform-driver/docs/source/index
+   external-docs/volttron-lib-base-historian/docs/source/index
 
 .. toctree::
    :caption: Developing in VOLTTRON
