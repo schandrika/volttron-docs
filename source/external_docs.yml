@@ -14,6 +14,10 @@ volttron-lib-base-historian:
     repo: https://github.com/schandrika/volttron-lib-base-historian
     version: docs
 
+volttron-lib-sql-historian:
+    repo: https://github.com/schandrika/volttron-lib-sql-historian
+    version: docs
+
 volttron-sqlite-historian:
     repo: https://github.com/schandrika/volttron-sqlite-historian
     version: docs
