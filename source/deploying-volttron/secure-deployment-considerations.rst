@@ -1,11 +1,9 @@
 .. _Secure-Deployment-Considerations:
 
 =====================================
-Security Considerations of Deployment  - TODO
+Security Considerations of Deployment
 =====================================
 
-TODO - read through and update, remove RMQ details for now
--------------------------------------------------------
 
 Security of computing systems is a complex topic which depends not only on the
 security of each component, but on how software components interact and on the
@@ -51,32 +49,6 @@ There are scenarios when this configuration may not be desired:
    it can be more convenient to use the normal start and stop scripts packaged
    with VOLTTRON. These do not require the user have system-level permissions
    and are easily used from the terminal.
-
-
-Run Web Server Behind Proxy
-===========================
-
-A VOLTTRON deployment may be web-enabled, allowing various interactions over HTTP.
-There are many reasons why it is often desirable to deploy an external reverse
-proxy in front of the system, including:
-
-- Allows regular security patching of the exposed web server independent of the VOLTTRON
-  process's lifecycle.
-- Prevents DDoS and similar attacks, which may successfuly impact the web server, from
-  impacting the VOLTTRON process itself.
-- Provides a opportunity for institutional cyber security experts to help maintain a
-  secure and compliant web server configuration without needing to gain VOLTTRON-specific
-  experience.
-- Many other traffic management and filtering options which are documented by the various
-  tools (load balancing, http header management, etc.).
-
-The full complexity of configuring a reverse proxy is outside the scope of this documentation. For reference,
-two common open source options are `apache httpd <https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html>`_
-and `nginx <https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/>`_
-(relevant portions of their respective documentation pages are linked).
-
-To set up a reverse proxy for VOLTTRON using apache, please refer to this document:
-:ref:`Apache Reverse Proxy Setup <Apache-Reverse-Proxy-Setup>`
 
 
 Monitor for Data Tampering
@@ -162,15 +134,6 @@ and apply the allow decorator to all RPC enabled methods.
 
 For more information, refer to the section on :ref:`VIP-Authorization`.
 
-
-Monitoring RabbitMQ Server
-==========================
-
-Monitoring of RabbitMQ server in deployment setup can be achieved by running RabbitMQ server as a systemd service.
-RabbitMQ server is configured to run as a systemd service and allow systemd to monitor the status of the service. It
-can be further configured to detect and restart the RabbitMQ service if it crashes. VOLTTRON agents have the ability
-to detect when the RabbitMQ server crashes/disconnects and reconnect when it becomes available. In this deployment
-setup, a VOLTTRON platform will not start/stop the RabbitMQ server.
 
 Isolate agent process from core VOLTTRON process
 ================================================
