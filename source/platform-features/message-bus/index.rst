@@ -22,8 +22,3 @@ For more information please explore the message bus documentation linked below:
     topics
     vip/vip-overview
 
-..
-
-    rabbitmq/rabbitmq-overview
-    multi-platform/multi-platform-communication
-

@@ -58,8 +58,3 @@ useful agent frameworks, services, and libraries that can be installed based on 
    agents’ access to devices in order to prevent conflicts.
 -  **Web Service**: This `service <https://pypi.org/project/volttron-lib-web/>`_ provides a RESTful HTTP API for
    communicating with components of the VOLTTRON system
-
-
-.. toctree::
-
-   ../deploying-volttron/proxy_web_server
