@@ -31,7 +31,7 @@ PNNL hosts office hours every other week on Fridays at 11 AM (PST). These meetin
 where VOLTTRON developers can answer specific questions about the inner workings of VOLTTRON. These meetings are also
 available for topical discussions of different aspects of the VOLTTRON platform. Currently the office hours are
 available through a Zoom meeting. To be invited to the link meeting, contact the volttron team via email:
-`volttron-dev@eclipse.org<mailto:volttron-dev@eclipse.org>`__
+ `volttron-dev@eclipse.org <mailto:volttron-dev@eclipse.org>`__
 
 Meetings are recorded and can be reviewed `here <https://volttron.org/office-hours>`__.
 

@@ -7,10 +7,10 @@
 Installing the Platform
 =======================
 
-VOLTTRON is written in Python 3.8+ and runs on Linux Operating Systems.  For users unfamiliar with those technologies,
+VOLTTRON is written in Python 3.10+ and runs on Linux Operating Systems.  For users unfamiliar with those technologies,
 the following resources are recommended:
 
--   `Python 3.8 Tutorial <https://docs.python.org/3.8/tutorial>`_
+-   `Python 3.10 Tutorial <https://docs.python.org/3.10/tutorial>`_
 -   `Linux Tutorial <http://ryanstutorials.net/linuxtutorial>`_
 
 This guide will specify commands to use to successfully install the platform on supported Linux distributions, but a
@@ -29,7 +29,7 @@ Step 1 - Install prerequisites
 
 The following packages will need to be installed on the system:
 
-*  python >= 3.8
+*  python >= 3.10
 *  pip
 
 Verify python installation with the following command:
@@ -122,7 +122,7 @@ The following command starts volttron process in the background:
   volttron -vv -l volttron.log&
 
 This enters the virtual Python environment and then starts the platform in debug (vv) mode with a log file
-named volttron.log.
+named volttron.log. By default log file will get written to VOLTTRON_HOME directory
 
 .. warning::
     If you plan on running VOLTTRON in the background and detaching it from the
@@ -285,5 +285,6 @@ You can explore the list of available agents by searching PYPI for "volttron-". 
 commonly used agents such as Platform drivers and Historians. This website provides links to all the core agents
 documentation. You can get a overview of the agent frameworks at :ref:`Agent Framework <Agent-Framework>`.
 
-:ref:`Deploying VOLTTRON <Single-Machine-Deployment>` and :ref:`VOLTTRON security considerations<VOLTTRON-Security>`
-explain factors to consider when deploying VOLTTRON for production environments
+:ref:`Planning Deployment <Planning-Deployments>`, :ref:`Linux System Hardening <Linux-System-Hardening>`,
+and :ref:`VOLTTRON security considerations<VOLTTRON-Security>` explain factors to consider when deploying
+VOLTTRON for production environments

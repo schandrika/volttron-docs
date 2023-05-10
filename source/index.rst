@@ -101,7 +101,6 @@ and quaterly user meetings. To be invited to office-hours, please `send the team
 
    deploying-volttron/platform-configuration
    deploying-volttron/deployment-planning-options
-   deploying-volttron/single-machine
    deploying-volttron/secure-deployment-considerations
    deploying-volttron/linux-system-hardening
 

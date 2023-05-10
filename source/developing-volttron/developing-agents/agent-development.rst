@@ -7,100 +7,258 @@ Agent Development - TODO
 needs update. Has lots of good content about general agent dev but should reword could we update vpkg for modular
 ----------------------------------------------------------------------------------
 
-The VOLTTRON platform now has utilities to speed the creation and installation of new agents. To use these utilities the
-VOLTTRON environment must be activated.
+To develop a new agent that works with the modular VOLTTRON code, a developer need not clone VOLTTRON core.
+The developer only needs a VOLTTRON setup as described in :ref:`platform installation <Platform-Installation>`. Users
+can then use a template agent to create a starting point that can be modified for their specific use case
 
-From the project directory, activate the VOLTTRON environment with:
+Create Agent Code using copier
+==============================
+
+Copier is a program that allows simple question answer format to fill in templates that are
+created from a github repository. You can use the copier program with the
+`volttron agent template <https://github.com/VOLTTRON/copier-poetry-volttron-agent.git>`_
+
+Pre-requisites for Copier
+--------------------------
+
+* Install Python 3.7 or newer (3.8 or newer if you're on Windows).
+* Install Git 2.27 or newer.
+* Install python3-pip (sudo apt install python3-pip)
+
+Install Copier
+--------------
+Create a virtual environment and install copier in the activated environment
 
 .. code-block:: bash
 
-    source env/bin/activate
+    python3 -m venv <path to virtual env dir>
+    source <path to virtual env dir>/bin/activate
+    pip install copier
 
-
-Create Agent Code
-=================
-
-Run the following command to start the Agent Creation Wizard:
+Run copier to create agent
+---------------------------
+Executing the following will start prompting the user for information and then generating a custom agent based upon
+the answers
 
 .. code-block:: bash
 
-    vpkg init TestAgent tester
+    copier "https://github.com/VOLTTRON/copier-poetry-volttron-agent.git" /path/to/your/new/project --vcs-ref=HEAD
 
-`TestAgent` is the directory that the agent code will be placed in. The directory must not exist when the command is
-run.  `tester` is the name of the agent module created by wizard.
 
 The Wizard will prompt for the following information:
 
-.. code-block:: console
+.. code-block:: bash
 
-    Agent version number: [0.1]: 0.5
-    Agent author: []: VOLTTRON Team
-    Author's email address: []: volttron@pnnl.gov
-    Agent homepage: []: https://volttron.org/
-    Short description of the agent: []: Agent development tutorial.
+    (env) kefei@ubuntu-22:~/project/test-project$ copier "https://github.com/VOLTTRON/copier-poetry-volttron-agent.git" ExampleAgent --vcs-ref=HEAD
 
-Once the last question is answered the following will print to the console:
+    🎤 Your project name
 
-.. code-block:: console
+       ExampleAgent
 
-    2018-08-02 12:20:56,604 () volttron.platform.packaging INFO: Creating TestAgent
-    2018-08-02 12:20:56,604 () volttron.platform.packaging INFO: Creating TestAgent/tester
-    2018-08-02 12:20:56,604 () volttron.platform.packaging INFO: Creating TestAgent/setup.py
-    2018-08-02 12:20:56,604 () volttron.platform.packaging INFO: Creating TestAgent/config
-    2018-08-02 12:20:56,604 () volttron.platform.packaging INFO: Creating TestAgent/tester/agent.py
-    2018-08-02 12:20:56,604 () volttron.platform.packaging INFO: Creating TestAgent/tester/__init__.py
+    🎤 Your project description
 
-The TestAgent directory is created with the new Agent inside.
+       Example Agent
 
+    🎤 Your full name
+
+       Kefei Mo
+
+    🎤 Your email
+
+       kefei.mo@pnnl.gov
+
+    🎤 Your username (e.g. on GitHub)
+
+       kefeimo
+
+    🎤 Your repository provider
+
+       github.com
+
+    🎤 Your repository namespace
+
+       kefeimo
+
+    🎤 Your repository name
+
+       exampleagent
+
+    🎤 The name of the person/entity holding the copyright
+
+       Kefei Mo
+
+    🎤 The email of the person/entity holding the copyright
+
+       kefei.mo@pnnl.gov
+
+    🎤 The copyright date
+
+       2023
+
+    🎤 Your project's license
+
+       Apache License 2.0
+
+    🎤 Your Python package distribution name (for `pip install NAME`)
+
+       exampleagent
+
+    🎤 Your Python package import name (for `import NAME` in Python code)
+
+       exampleagent
+
+    🎤 Main class name for your agent
+
+       Exampleagent
+
+    🎤 Your CLI name if any (for use in the shell)
+
+       exampleagent
+
+    🎤 Do you want to use pre-commit?
+
+       No
+
+    Copying from template version 0.3.0b0.post25.dev0+e61c744
+
+        create  .
+        create  mypy.ini
+        create  config
+        create  pyproject.toml
+        create  scripts
+        create  scripts/post_generation.py
+        create  .copier-answers.yml
+        create  .pre-commit-config.yaml
+        create  src
+        create  src/exampleagent
+        create  src/exampleagent/__init__.py
+        create  src/exampleagent/agent.py
+        create  .gitlab-ci.yml
+        create  CHANGELOG.md
+        create  tests
+        create  tests/conftest.py
+        create  tests/test_cli.py
+        create  docs
+        create  docs/source
+        create  docs/source/index.rst
+        create  docs/source/conf.py
+        create  docs/Makefile
+        create  LICENSE
+        create  CONTRIBUTING.md
+        create  .gitignore
+        create  .github
+        create  .github/workflows
+        create  .github/workflows/create_release.yml
+        create  .github/workflows/publish_to_pypi.yml
+        create  .github/workflows/ci.yml
+        create  .github/workflows/code_analysis.yml
+        create  .github/ISSUE_TEMPLATE
+        create  .github/ISSUE_TEMPLATE/feature_request.md
+        create  .github/ISSUE_TEMPLATE/bug_report.md
+        create  README.md
+
+     > Running task 1 of 1: python scripts/post_generation.py
+
+    Project successfully generated!
+
+Deactivate virtual environment created for copier
+-------------------------------------------------
+
+.. code-block:: bash
+    deactivate
 
 Agent Directory
 ---------------
 
-At this point, the contents of the TestAgent directory should look like:
+The above command would have created a ExampleAgent directory with the following structure
 
 ::
 
-    TestAgent/
-    ├── setup.py
-    ├── config
-    └── tester
-        ├── agent.py
-        └── __init__.py
+    (env) kefei@ubuntu-22:~/project/copier-for-chandrika$ tree ExampleAgent/
 
+    ExampleAgent/
+    ├── CHANGELOG.md
+    ├── config
+    ├── CONTRIBUTING.md
+    ├── docs
+    │   ├── Makefile
+    │   └── source
+    │   ├── conf.py
+    │   └── index.rst
+    ├── LICENSE
+    ├── mypy.ini
+    ├── pyproject.toml
+    ├── README.md
+    ├── scripts
+    ├── src
+    │   └── exampleagent
+    │     ├── agent.py
+    │     └── __init__.py
+    └── tests
+        ├── conftest.py
+        └── test_cli.py
+    6 directories, 14 files
+
+Setting up agent environment
+----------------------------
+
+The generated agent comes with a pyproject.toml file that can be used to install the agent locally for development.
+Update the pyproject.toml with the correct version of volttron you want to use and the python version in your
+environment. VOLTTRON support python version >= 3.10 <4.0. Also add any additional dependencies your agent may require.
+Once you update the pyproject.toml file, run the following command from within the ExampleAgent directory
+
+.. code-block:: bash
+    poetry install
+
+The ```poetry install``` command will create a virtual environment and pull down all the dependencies for the
+ExampleAgent. Now the agent is ready for development. You can open the ExampleAgent directory in an IDE of your choice
+(ex. Pycharm, VS code etc), point to the python in the virtual environment created by poetry and start updating the
+agent code.
 
 Agent Skeleton
 --------------
 
-The `agent.py` file in the `tester` directory of the newly created agent module will contain skeleton code (below).
-Descriptions of the features of this code as well as additional development help are found in the rest of this document.
+The `agent.py` file in the `ExampleAgent/src/exampleagent` directory of the newly created agent module will contain
+skeleton code (below). Descriptions of the features of this code as well as additional development help are found in
+the rest of this document.
 
 .. code-block:: python
 
     """
     Agent documentation goes here.
+    For a quick tutorial on Agent Development, see https://volttron.readthedocs.io/en/develop/developing-volttron/developing-agents/agent-development.html#agent-development
     """
-
-    __docformat__ = 'reStructuredText'
 
     import logging
     import sys
-    from volttron.platform.agent import utils
-    from volttron.platform.vip.agent import Agent, Core, RPC
+    from pprint import pformat
+    import datetime
 
-    _log = logging.getLogger(__name__)
+    from volttron import utils
+    from volttron.utils.commands import vip_main
+    from volttron.client.messaging.health import STATUS_GOOD
+    from volttron.client.vip.agent import Agent, Core, PubSub, RPC
+    from volttron.client.vip.agent.subsystems.query import Query
+
+    # from . import __version__
+    __version__ = "0.1.0"
+
+    # Setup logging so that it runs within the platform
     utils.setup_logging()
-    __version__ = "0.1"
+
+    # The logger for this agent is _log and can be used throughout this file.
+    _log = logging.getLogger(__name__)
 
 
-    def tester(config_path, **kwargs):
+    def exampleagent(config_path, **kwargs):
         """
         Parses the Agent configuration and returns an instance of
         the agent created using that configuration.
 
         :param config_path: Path to a configuration file.
         :type config_path: str
-        :returns: Tester
-        :rtype: Tester
+        :returns: Exampleagent
+        :rtype: Exampleagent
         """
         try:
             config = utils.load_config(config_path)
@@ -113,24 +271,25 @@ Descriptions of the features of this code as well as additional development help
         setting1 = int(config.get('setting1', 1))
         setting2 = config.get('setting2', "some/random/topic")
 
-        return Tester(setting1, setting2, **kwargs)
+        return Exampleagent(setting1, setting2, **kwargs)
 
 
-    class Tester(Agent):
+    class Exampleagent(Agent):
         """
-        Document agent constructor here.
+        Exampleagent is an example file that listens to the message bus and prints it to the log.
         """
 
         def __init__(self, setting1=1, setting2="some/random/topic", **kwargs):
-            super(Tester, self).__init__(**kwargs)
+            super(Exampleagent, self).__init__(**kwargs)
             _log.debug("vip_identity: " + self.core.identity)
 
             self.setting1 = setting1
             self.setting2 = setting2
+            # Runtime limit allows the agent to stop automatically after a specified number of seconds.
+            self.runtime_limit = 0
 
             self.default_config = {"setting1": setting1,
                                    "setting2": setting2}
-
             # Set a default configuration to ensure that self.configure is called immediately to setup
             # the agent.
             self.vip.config.set_default("config", self.default_config)
@@ -158,8 +317,18 @@ Descriptions of the features of this code as well as additional development help
 
             self.setting1 = setting1
             self.setting2 = setting2
+            self.runtime_limit = int(config.get('runtime_limit', 0))
 
+            self._set_runtime_limit()
             self._create_subscriptions(self.setting2)
+
+        def _set_runtime_limit(self):
+            if not self.runtime_limit and self.runtime_limit > 0:
+                stop_time = datetime.datetime.now() + datetime.timedelta(seconds=self.runtime_limit)
+                _log.info('Exampleagent agent will stop at {}'.format(stop_time))
+                self.core.schedule(stop_time, self.core.stop)
+            else:
+                _log.info('No valid runtime_limit configured; Exampleagent agent will run until manually stopped')
 
         def _create_subscriptions(self, topic):
             """
@@ -212,11 +381,23 @@ Descriptions of the features of this code as well as additional development help
             """
             return self.setting1 + arg1 - arg2
 
+        @PubSub.subscribe('pubsub', '', all_platforms=True)
+        def on_match(self, peer, sender, bus, topic, headers, message):
+            """Use match_all to receive all messages and print them out."""
+            self._logfn(
+                "Peer: {0}, Sender: {1}:, Bus: {2}, Topic: {3}, Headers: {4}, "
+                "Message: \n{5}".format(peer, sender, bus, topic, headers, pformat(message)))
+
 
     def main():
-        """Main method called to start the agent."""
-        utils.vip_main(tester,
-                       version=__version__)
+        """
+        Main method called during startup of agent.
+        :return:
+        """
+        try:
+            vip_main(exampleagent, version=__version__)
+        except Exception as e:
+            _log.exception('unhandled exception')
 
 
     if __name__ == '__main__':
@@ -226,8 +407,9 @@ Descriptions of the features of this code as well as additional development help
         except KeyboardInterrupt:
             pass
 
+
 The resulting code is well documented with comments and documentation strings. It gives examples of how to do common
-tasks in VOLTTRON Agents.  The main agent code is found in `tester/agent.py`.
+tasks in VOLTTRON Agents.  The main agent code is found in `ExampleAgent/src/exampleagent/agent.py`.
 
 
 Building an Agent
@@ -243,7 +425,7 @@ The code to parse a configuration file packaged and installed with the agent is 
 
 .. code-block:: python
 
-    def tester(config_path, **kwargs):
+    def exampleagent(config_path, **kwargs):
         """
         Parses the Agent configuration and returns an instance of
         the agent created using that configuration.
@@ -264,7 +446,7 @@ The code to parse a configuration file packaged and installed with the agent is 
         setting1 = int(config.get('setting1', 1))
         setting2 = config.get('setting2', "some/random/topic")
 
-        return Tester(setting1, setting2, **kwargs)
+        return Exampleagent(setting1, setting2, **kwargs)
 
 The configuration is parsed with the `utils.load_config` function and the results are stored in the `config` variable.
 An instance of the Agent is created from the parsed values and is returned.
@@ -278,21 +460,23 @@ a simple example of setting up default configuration store values and setting up
 
 .. code-block:: python
 
-    class Tester(Agent):
+    class Exampleagent(Agent):
         """
-        Document agent constructor here.
+        Exampleagent is an example file that listens to the message bus and prints it to the log.
         """
 
+
         def __init__(self, setting1=1, setting2="some/random/topic", **kwargs):
-            super(Tester, self).__init__(**kwargs)
-            _log.debug("vip_identity: " + self.core.identity)
+            super(Exampleagent, self).__init__(**kwargs)
+             _log.debug("vip_identity: " + self.core.identity)
 
             self.setting1 = setting1
             self.setting2 = setting2
+            # Runtime limit allows the agent to stop automatically after a specified number of seconds.
+            self.runtime_limit = 0
 
             self.default_config = {"setting1": setting1,
                                    "setting2": setting2}
-
             # Set a default configuration to ensure that self.configure is called immediately to setup
             # the agent.
             self.vip.config.set_default("config", self.default_config)
@@ -320,8 +504,18 @@ a simple example of setting up default configuration store values and setting up
 
             self.setting1 = setting1
             self.setting2 = setting2
+            self.runtime_limit = int(config.get('runtime_limit', 0))
 
+            self._set_runtime_limit()
             self._create_subscriptions(self.setting2)
+
+        def _set_runtime_limit(self):
+            if not self.runtime_limit and self.runtime_limit > 0:
+                stop_time = datetime.datetime.now() + datetime.timedelta(seconds=self.runtime_limit)
+                _log.info('Exampleagent agent will stop at {}'.format(stop_time))
+                self.core.schedule(stop_time, self.core.stop)
+            else:
+                _log.info('No valid runtime_limit configured; Exampleagent agent will run until manually stopped')
 
 .. note::
 
@@ -477,9 +671,7 @@ Publishing Data to the Message Bus
 ----------------------------------
 
 The agent's VIP connection can be used to publish data to the message bus.  The message published and topic to publish
-to are determined by the agent implementation.  Classes of agents already
-:ref:`specified by VOLTTRON <Agent-Specifications>` may have well-defined intended topic usage, see those agent
-specifications for further detail.
+to are determined by the agent implementation.
 
 .. code-block:: python
 
@@ -576,7 +768,7 @@ Example of setting health:
 
 .. code-block:: python
 
-    from volttron.platform.messaging.health import STATUS_BAD, STATUS_GOOD,
+    from volttron.client.messaging.health import STATUS_BAD, STATUS_GOOD,
 
     self.vip.health.set_status(STATUS_GOOD, "Configuration of agent successful")
 
@@ -622,7 +814,8 @@ The VOLTTRON team has come up with a number of methods to help users develop mor
    returns a value or throws an Exception in a timely manner.  A number of seconds can be provided to specify a timeout
    duration.
 #. Many of the :ref:`Operations Agents <Operations-Agents>` can be used to monitor agent health, status, publishing
-   frequency and more.  Read up on the "ops agents" for more information.
+   frequency and more.  Read up on the "ops agents" for more information.(TODO. These agents are not ported to modular
+   code yet.)
 
     .. note::
 
