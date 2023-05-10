@@ -1,16 +1,14 @@
 .. _Platform-Commands:
 
 =================
-Platform Commands  -  TODO
+Platform Commands
 =================
 
-TO be updated for modular
----------------------------
-
-VOLTTRON files for a platform instance are stored under a single directory known as the VOLTTRON home.  This home
-directory is set via the :term:`VOLTTRON_HOME` environment variable and defaults to ``~/.volttron``.  Multiple instances
+Eclipse VOLTTRON\ :sup:`tm`\  (VOLTTRON/volttron) files for a platform instance are stored under a single directory known as the VOLTTRON home.  This home
+directory is set via the :term:`VOLTTRON_HOME` environment variable and defaults to ``$HOME/.volttron``.  Multiple instances
 of the platform may exist under the same account on a system by setting the `VOLTTRON_HOME` environment variable
-appropriately before executing VOLTTRON commands.
+appropriately before executing VOLTTRON commands.  The ``volttron`` and ``volttron-ctrl`` commands can be passed arguments or be specified in a configuration file.  By
+default a configuration file will be created the first time an instance is executed at `VOLTTRON_HOME/config`.  
 
 VOLTTRON's configuration file uses a modified INI format where section names are command names for which the settings in
 the section apply.  Settings before the first section are considered global and will be used by all commands for which
@@ -18,36 +16,28 @@ the settings are valid.  Settings keys are long options (with or without the ope
 (``:``) or equal (``=``) and then the value.  Boolean options need not include the separator or value, but may specify a
 value of ``1``, ``yes``, or ``true`` for `true` or ``0``, ``no``, or ``false`` for `false`.
 
-
-..
-.. code-block::
-
-..
+.. code-block:: config
 
     [volttron]
-    message-bus = zmq
     instance-name = volttron1
     vip-address = tcp://127.0.0.1:22916
-    bind-web-address = https://<hostname>:8443
-    volttron-central-address = https://<hostname>:8443
-
+ 
 where:
 
-* **message-bus** - Indicates message bus to be used. Valid values are ``zmq`` and ``rmq``
 * **instance-name** - Name of the VOLTTRON instance. This has to be unique if multiple instances need to be connected
   together
 * **vip-address** - :term:`VIP address` of the VOLTTRON instance. It contains the IP address and port number (default
   port number is 22916)
-* **bind-web-address** - Optional parameter, only needed if VOLTTRON instance needs a web interface
-* **volttron-central-address** - Optional parameter. Web address of VOLTTRON Central agent
 
-.. note::
+.. code-block:: bash
+   :caption: Start volttron with default config file
 
+   volttron -l volttron.log &
 
+.. code-block:: bash      
+   :caption: Start with alternate configuration file
 
-    .. code-block:: bash
-    
-        env/bin/volttron -c <config> -l volttron.log &
+   volttron -c <config> -l volttron.log &
 
 Below is a compendium of commands which can be used to operate the VOLTTRON Platform from the command line interface.
 
@@ -80,13 +70,11 @@ volttron Optional Arguments
 - **-L FILE, --log-config FILE** - Use the configuration from FILE for VOLTTRON platform logging
 - **--log-level LOGGER:LEVEL** - override default logger logging level (`INFO`, `DEBUG`, `WARNING`, `ERROR`, `CRITICAL`,
   `NOTSET`)
-- **--monitor** - monitor and log connections (implies verbose logging mode ``-v``)
 - **-q, --quiet** - decrease logger verboseness; may be used multiple times to further reduce logging (i.e. ``-qq``)
 - **-v, --verbose** - increase logger verboseness; may be used multiple times (i.e. ``-vv``)
 - **--verboseness LEVEL** - set logger verboseness level
 - **-h, --help** - show this help message and exit
 - **--version** - show program's version number and exit
-- **--message-bus MESSAGE_BUS** - set message bus to be used. valid values are ``zmq`` and ``rmq``
 
 .. note::
 
@@ -129,13 +117,9 @@ Agent Options
 volttron-ctl Commands
 =====================
 
-`volttron-ctl` is used to issue commands to the platform from the command line.  Through `volttron-ctl` it is possible
+`volttron-ctl` (`vctl`) is used to issue commands to the platform from the command line.  Through `volttron-ctl` it is possible
 to install and removed agents, start and stop agents, manage the configuration store, get the platform status, and
 shutdown the platform.
-
-In more recent versions of VOLTTRON, the commands `vctl`, `vpkg`, and `vcfg` have been added to be used as a stand-in
-for `volttron-ctl`, `volttron-pkg`, and `volttron-cfg` in the CLI.  The VOLTTRON documentation will often use this
-convention.
 
 .. warning::
 
@@ -186,7 +170,6 @@ Commands
 - **stop AGENT** - stop agent
 - **restart AGENT** - restart agent
 - **run PATH** - start any agent by path
-- **upgrade AGENT WHEEL** - upgrade agent from wheel file
 
     .. note::
 
