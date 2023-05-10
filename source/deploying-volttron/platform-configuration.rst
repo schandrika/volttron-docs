@@ -37,9 +37,7 @@ VOLTTRON Config File
 
 The `config` file in `VOLTTRON_HOME` is the config file used by the platform.  This configuration file specifies the
 behavior of the platform at runtime, including which message bus it uses, the name of the platform instance, and the
-address bound to by :term:`VIP`.  The `VOLTTRON Config`_ wizard (explained below) can be used to configure an instance
-for the first time.  The user may run the wizard again or edit the config file directly as necessary for operations.
-The following is a simple  example `config` for a multi-platform deployment:
+address bound to by :term:`VIP`. The following is a simple  example `config`:
 
 ::
 
@@ -50,7 +48,6 @@ The following is a simple  example `config` for a multi-platform deployment:
     web-ssl-cert = <VOLTTRON_HOME>/certificates/certs/platform_web-server.crt
     web-ssl-key = <VOLTTRON_HOME>/certificates/private/platform_web-server.pem
     instance-name = volttron1
-    volttron-central-address = <VC address>
 
 The example consists of the following entries:
 
@@ -63,5 +60,3 @@ The example consists of the following entries:
 * **web-ssl-key** - Optional, needed if platform has to support web feature. Represents secret key or path to secret key
   file used by web service authenticate requests
 * **instance-name** - Optional, name of this VOLTTRON platform instance, should be unique for the deployment. Defaults to volttron1
-* **volttron-central-address** - Optional, needed if instance is running Volttron Central.  Represents web address of
-  VOLTTRON Central agent managing this platform instance.  Typical address would be ``https://<hostname>:8443``

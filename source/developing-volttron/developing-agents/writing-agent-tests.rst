@@ -1,11 +1,8 @@
 .. _Writing-Agent-Tests:
 
 ===================
-Writing Agent Tests - TODO
+Writing Agent Tests
 ===================
-
--update package names in example code, talk about unit tests/integration test
-------------------------------------------------------------------------------
 
 The VOLTTRON team strongly encourages developing agents with a set of unit and integration tests.  Test-driven
 development can save developers significant time and effort by clearly defining behavioral expectations for agent code.
@@ -24,12 +21,6 @@ To get started with Pytest, install it in an activated environment:
 
     pip install pytest
 
-Or when running VOLTTRON's bootstrap process, specify the ``--testing`` optional argument.
-
-.. code-block:: bash
-
-    python bootstrap.py --testing
-
 `Pytest on PyPI <https://pypi.org/project/pytest/>`_
 
 
@@ -41,18 +32,19 @@ We suggest the following structure for your agent module:
 ::
 
     ├── UserAgent
-    │   ├── user_agent
-    │   │   ├── data
-    │   │   │   └── user_agent_data.csv
+    │   ├── src
+    │   │   ├── agent_name_package
+    │   │   │  └── data
+    │   │   │     └── user_agent_data.csv
     │   │   ├── __init__.py
     │   │   └── agent.py
     │   ├── tests
     │   │   └── test_user_agent.py
+    │   │   └── contest.py
     │   ├── README.md
-    │   ├── config.json
-    │   ├── contest.py
-    │   ├── requirements.txt
-    │   └── setup.py
+    │   ├── config
+    │   ├── LICENSE
+    │   └── pyproject.toml
 
 The test suite should be in a `tests` directory in the root agent directory, and should contain one or more
 test code files (with the `test_<name of test>` convention). `conftest.py` can be used to give all agent tests
@@ -119,98 +111,6 @@ should capture how the components of the system should function; and describe al
 conditions given the possible range of inputs including how they should fail if given improper input.
 
 `Pytest guide to Unit Testing <https://docs.python-guide.org/writing/tests/#unittest>`_
-
-Mocking Dependencies
---------------------
-
-VOLTTRON agents include code for many platform features; these features can be mocked to allow unit tests to test only
-the features of the agent without having to account for the behaviors of the core platform. While there are many tools
-that can mock dependencies of an agent, we recommend Volttron's AgentMock or Python's Mock testing library.
-
-AgentMock
-^^^^^^^^^
-AgentMock was specifically created to run unit tests on agents. AgentMock takes an Agent class and mocks the attributes
-and methods of that Agent's dependencies. AgentMock also allows you to customize the behavior of dependencies within
-each individual test. Below is an example:
-
-.. code-block:: python
-
-    # Import the Pytest, Mock, base Agent, and Agent mock utility from VOLTTRON's repository
-    import pytest
-    import mock
-    from volttron.platform.vip.agent import Agent
-    from volttrontesting.utils.utils import AgentMock
-    # Import your agent code
-    from UserAgent import UserAgentClass
-
-    UserAgentClass.__bases__ = (AgentMock.imitate(Agent, Agent()),)
-    agent = UserAgentClass()
-
-    def test_success_case():
-        result = agent.do_function("valid input")
-        assert isinstance(result, dict)
-        for key in ['test1', 'test2']:
-            assert key in result
-        assert result.get("test1") == 10
-        assert isinstance(result.get("test2"), str)
-        # ...
-
-    def test_success_case_custom_mocks():
-        agent.some_dependency.some_method.return_value = "foobar"
-        agent.some_attribute = "custom, dummy value"
-        result = agent.do_function_that_relies_on_custom_mocks("valid input")
-        # ...
-
-    def test_failure_case()
-        # pytests.raises can be useful for testing exceptions, more information about usage below
-        with pytest.raises(ValueError, match=r'Invalid input string for do_function')
-            result = agent.do_function("invalid input")
-
-Mock
-^^^^
-
-Simliar to AgentMock, Python's Mock testing library allows a user to replace the behavior of dependencies with a
-user-specified behavior.  This is useful for replacing VOLTTRON platform behavior, remote API behavior, modules,
-etc. where using them in unit or integration tests is impractical or impossible.
-Below is an example that uses the patch decorator to mock an Agent's web request.
-
-`Mock documentation <https://docs.python.org/3/library/unittest.mock.html#quick-guide>`_
-
-.. code-block:: python
-
-    class UserAgent()
-
-        def __init__():
-            # Code here
-
-        def get_remote_data()
-            response = self._get_data_from_remote()
-            return "Remote response: {}".format(response)
-
-        # it can be useful to create private functions for use with mock for things like making web requests
-        def _get_data_from_remote():
-            url = "test.com/test1"
-            headers = {}
-            return requests.get(url, headers)
-
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    import pytest
-    import mock
-
-    def get_mock_response():
-        return "test response"
-
-    # here we're mocking the UserAgent's _get_data_from_remote method and replacing it with our get_mock_response method
-    # to feed our test some fake remote data
-    @mock.patch.object(UserAgent, '_get_data_from_remote', get_mock_response)
-    def test_get_remote_data():
-           assert UserAgent.get_remote_Data() == "Remote response: test response"
-
-
-
-
-
 
 Pytest Tools
 ------------
@@ -358,82 +258,84 @@ and content of RPC calls and agent Pub/Sub, the agent subsystems, etc.
 
 `Pytest best practices for Integration Testing <https://docs.pytest.org/en/latest/goodpractices.html>`_
 
-Volttrontesting Directory
+volttron-testing package
 -------------------------
 
-The `Volttrontesting` directory includes several helpful fixtures for your tests. Including the following line at the
-top of your tests, or in `conftest.py`, will allow you to utilize the platform wrapper fixtures, and more.
+The `volttron-testing <https://pypi.org/project/volttron-lib-sql-historian/>`_ package includes several helpful
+fixtures and utilities for your tests. Including the following line at the
+top of your tests, or in `conftest.py`, will allow you to utilize the platform wrapper fixtures and the PlatformWrapper
+class that helps you create a volttron test instance for integration testing.
 
 .. code-block:: python
 
-    from volttrontesting.fixtures.volttron_platform_fixtures import *
+    from volttrontesting.fixtures.volttron_platform_fixtures import volttron_instance
+
+You can also include the following code in `conftest.py` to include your src directory in the system path
+
+.. code-block:: python
+
+    # the following assumes that the testconf.py is in the tests directory.
+    volttron_src_path = Path(__file__).resolve().parent.parent.joinpath("src")
+
+    assert volttron_src_path.exists()
+
+    print(sys.path)
+    if str(volttron_src_path) not in sys.path:
+        print(f"Adding source path {volttron_src_path}")
+        sys.path.insert(0, str(volttron_src_path))
+
 
 Here is an example success case integration test:
 
 .. code-block:: python
 
-    import pytest
-    import mock
-    from volttrontesting.fixtures.volttron_platform_fixtures import *
+    import gevent
+    from pathlib import Path
 
-    # If the test requires user specified values, setting environment variables or having settings files is recommended
-    API_KEY = os.environ.get('API_KEY')
+    from volttron.client.messaging.health import STATUS_GOOD
+    from volttron.client.vip.agent import Agent
+    from volttrontesting.platformwrapper import PlatformWrapper
 
-    # request object is a pytest object for managing the context of the test
-    @pytest.fixture(scope="module")
-    def Weather(request, volttron_instance):
+
+    def test_platform_driver_agent_successful_install_on_volttron_platform(
+            publish_agent: Agent, volttron_instance: PlatformWrapper):
+        # Agent install path based upon root of this repository
+        agent_dir = Path(__file__).parent.parent.resolve().as_posix()
         config = {
-            "API_KEY": API_KEY
+            "driver_scrape_interval": 0.05,
+            "publish_breadth_first_all": "false",
+            "publish_depth_first": "false",
+            "publish_breadth_first": "false"
         }
-        # using the volttron_instance fixture (passed in by volttrontesting fixtures), we can install an agent
-        # on the platform to test against
-        agent = volttron_instance.install_agent(
-            vip_identity=identity,
-            agent_dir=source,
-            start=False,
-            config_file=config)
+        pdriver_id = "pdriver_health_id"
 
-        volttron_instance.start_agent(agent)
-        gevent.sleep(3)
+        pdriver_uuid = volttron_instance.install_agent(agent_dir=agent_dir,
+                                                       config_file=config,
+                                                       start=False,
+                                                       vip_identity=pdriver_id)
 
-        def stop_agent():
-            print("stopping weather service")
-            if volttron_instance.is_running():
-                volttron_instance.stop_agent(agent)
-        # here we used the passed request object to add something to happen when the test is finished
-        request.addfinalizer(stop_agent)
-        return agent, identity
+        assert pdriver_uuid is not None
+        gevent.sleep(1)
 
-    # Here we create a really simple agent which has only the core functionality, which we can use for Pub/Sub
-    # or JSON/RPC
-    @pytest.fixture(scope="module")
-    def query_agent(request, volttron_instance):
-        # Create the simple agent
-        agent = volttron_instance.build_agent()
+        started = volttron_instance.start_agent(pdriver_uuid)
+        assert started
+        assert volttron_instance.is_agent_running(pdriver_uuid)
 
-        def stop_agent():
-            print("In teardown method of query_agent")
-            agent.core.stop()
-
-        request.addfinalizer(stop_agent)
-        return agent
-
-    # pass the 2 fixtures to our test, then we can run the test
-    def test_weather_success(Weather, query_agent):
-        query_data = query_agent.vip.rpc.call(identity, 'get_current_weather', locations).get(timeout=30)
-        assert query_data.get("weather_results") = "Its sunny today!"
+        assert publish_agent.vip.rpc.call(
+            pdriver_id, "health.get_status").get(timeout=10).get('status') == STATUS_GOOD
 
 For more integration test examples, it is recommended to take a look at some of the VOLTTRON core agents, such as
-historian agents and weather service agents.
+`Platform Driver agent <https://github.com/eclipse-volttron/volttron-platform-driver/blob/main/tests/test_agent_integ.py>`_.
 
 Using Docker for Limited-Integration Testing
 --------------------------------------------
 
 If you want to run limited-integration tests which do not require the setup of a volttron system, you can use Docker
-containers to mimic dependencies of an agent. The `volttrontesting/fixtures/docker_wrapper.py` module provides a
-convenient function to create docker containers for use in limited-integration tests. For example, suppose that you
-had an agent with a dependency on a MySQL database. If you want to test the connection between the Agent and the MySQL
-dependency, you can create a Docker container to act as a real MySQL database. Below is an example:
+containers to mimic dependencies of an agent. The
+`docker wrapper module <https://github.com/eclipse-volttron/volttron-testing/blob/develop/src/volttrontesting/fixtures/docker_wrapper.py>`_
+provides a convenient function to create docker containers for use in limited-integration tests. For example,
+suppose that you had an agent with a dependency on a MySQL database. If you want to test the connection between the
+Agent and the MySQL dependency, you can create a Docker container to act as a real MySQL database. Below is an example:
 
 .. code-block:: python
 
@@ -466,48 +368,15 @@ Testing output should look something like this:
 
 .. code-block:: console
 
-    (volttron) <user>@<host>:~/volttron$ pytest services/core/SQLHistorian/
-    ======================================================== test session starts =========================================================
-    platform linux -- Python 3.6.9, pytest-5.4.1, py-1.8.1, pluggy-0.13.1 -- /home/<user>/volttron/env/bin/python
-    cachedir: .pytest_cache
-    rootdir: /home/<user>/volttron, inifile: pytest.ini
-    plugins: timeout-1.3.4
-    timeout: 240.0s
-    timeout method: signal
-    timeout func_only: False
-    collected 2 items
+    (volttron-py3.10) volttron@evolttron1:~/git/volttron-core$ pytest tests/unit/utils/test_client_context.py
+    =================================================== test session starts ===========================================
+    platform linux -- Python 3.10.6, pytest-6.2.5, py-1.11.0, pluggy-1.0.0
+    rootdir: /home/volttron/git/volttron-core, configfile: pytest.ini
+    collected 4 items
 
-    services/core/SQLHistorian/tests/test_sqlitehistorian.py::test_sqlite_timeout[volttron_3-volttron_instance0] ERROR             [ 50%]
-    services/core/SQLHistorian/tests/test_sqlitehistorian.py::test_sqlite_timeout[volttron_3-volttron_instance1] PASSED            [100%]
+    tests/unit/utils/test_client_context.py ....                                                                 [100%]
 
-    =============================================================== ERRORS ===============================================================
-    ________________________________ ERROR at setup of test_sqlite_timeout[volttron_3-volttron_instance0] ________________________________
-
-    request = <SubRequest 'volttron_instance' for <Function test_sqlite_timeout[volttron_3-volttron_instance0]>>, kwargs = {}
-    address = 'tcp://127.0.0.113:5846'
-
-        @pytest.fixture(scope="module",
-                        params=[
-                            dict(messagebus='zmq', ssl_auth=False),
-                            pytest.param(dict(messagebus='rmq', ssl_auth=True), marks=rmq_skipif),
-                        ])
-        def volttron_instance(request, **kwargs):
-            """Fixture that returns a single instance of volttron platform for testing
-
-            @param request: pytest request object
-            @return: volttron platform instance
-            """
-            address = kwargs.pop("vip_address", get_rand_vip())
-            wrapper = build_wrapper(address,
-                                    messagebus=request.param['messagebus'],
-                                    ssl_auth=request.param['ssl_auth'],
-    >                               **kwargs)
-
-    address    = 'tcp://127.0.0.113:5846'
-    kwargs     = {}
-    request    = <SubRequest 'volttron_instance' for <Function test_sqlite_timeout[volttron_3-volttron_instance0]>>
-
-    volttrontesting/fixtures/volttron_platform_fixtures.py:106:
+    ==================================================== 4 passed in 0.07s ============================================
 
 
 Running Tests Via PyCharm
@@ -522,12 +391,10 @@ following in general:
     * Set the "Script Path" radio and fill the form with the path to your module. Pytest will run any tests in that
       module using the discovery process described above (and any marks if specified)
     * In the interpreter dropdown, select the VOLTTRON virtual environment - this will likely be your project default
-    * Set the working directory to the VOLTTRON root directory
+    * Set the working directory to your project's root directory
     * Add any environment variables - For debugging, add variable "DEBUG_MODE" = True or "DEBUG" 1
     * Add any optional arguments (-s will prevent standard output from being displayed in the console window, -m is used
       to specify a mark)
-
-.. image:: files/run_configuration.png
 
 `PyCharm testing instructions <https://www.jetbrains.com/help/pycharm/run-debug-configuration-py-test.html>`_
 
