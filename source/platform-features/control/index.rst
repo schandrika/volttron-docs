@@ -96,26 +96,8 @@ Agent Options
 -------------
 
 - **--autostart** - automatically start enabled agents and services after platform startup
-- **--vip-address ZMQADDR** - ZeroMQ URL to bind for VIP connections
-- **--vip-local-address ZMQADDR** - ZeroMQ URL to bind for local agent VIP connections
-- **--bind-web-address BINDWEBADDR** - Bind a web server to the specified ip:port passed
-- **--web-ca-cert CAFILE** - If using self-signed certificates, this variable will be set globally to allow requests to
-  be able to correctly reach the webserver without having to specify verify in all calls.
-- **--web-secret-key WEB_SECRET_KEY** - Secret key to be used instead of HTTPS based authentication.
-- **--web-ssl-key KEYFILE** - SSL key file for using https with the VOLTTRON server
-- **--web-ssl-cert CERTFILE** - SSL certificate file for using https with the VOLTTRON server
-- **--volttron-central-address VOLTTRON_CENTRAL_ADDRESS** - The web address of a VOLTTRON Central install instance.
-- **--volttron-central-serverkey VOLTTRON_CENTRAL_SERVERKEY** - The server key of the VOLTTRON Central being connected
-  to.
+- **--vip-address ADDR** - Address to bind for VIP connections
 - **--instance-name INSTANCE_NAME** - The name of the instance that will be reported to VOLTTRON Central.
-- **--msgdebug** - Route all messages to an instance of the MessageDebug agent while debugging.
-- **--setup-mode** - Setup mode flag for setting up authorization of external platforms.
-- **--volttron-central-rmq-address VOLTTRON_CENTRAL_RMQ_ADDRESS** - The AMQP address of a VOLTTRON Central install
-  instance
-- **--agent-monitor-frequency AGENT_MONITOR_FREQUENCY** - How often should the platform check for crashed agents
-  and attempt to restart. Units=seconds. Default=600
-- **--agent-isolation-mode AGENT_ISOLATION_MODE** - Require that agents run with their own users (this requires running
-  scripts/secure_user_permissions.sh as sudo)
 
 .. warning::
 
@@ -146,8 +128,7 @@ vctl Optional Arguments
 - **-c FILE, --config FILE** - Start the platform using the configuration from the provided FILE
 - **--debug** - show tracebacks for errors rather than a brief message
 - **-t SECS, --timeout SECS** - timeout in seconds for remote calls (default: 60)
-- **--msgdebug MSGDEBUG** - route all messages to an agent while debugging
-- **--vip-address ZMQADDR** - ZeroMQ URL to bind for VIP connections
+- **--vip-address ADDR** - URL to bind for VIP connections
 - **-l FILE, --log FILE** - send log output to FILE instead of standard output/error
 - **-L FILE, --log-config FILE** - Use the configuration from FILE for VOLTTRON platform logging
 - **-q, --quiet** - decrease logger verboseness; may be used multiple times to further reduce logging (i.e. ``-qq``)
