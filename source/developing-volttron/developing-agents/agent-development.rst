@@ -4,9 +4,6 @@
 Agent Development
 =================
 
-needs update. Has lots of good content about general agent dev but should reword could we update vpkg for modular
-----------------------------------------------------------------------------------
-
 To develop a new agent that works with the modular VOLTTRON code, a developer need not clone VOLTTRON core.
 The developer only needs a VOLTTRON setup as described in :ref:`platform installation <Platform-Installation>`. Users
 can then use a template agent to create a starting point that can be modified for their specific use case
@@ -198,6 +195,23 @@ The above command would have created a ExampleAgent directory with the following
         ├── conftest.py
         └── test_cli.py
     6 directories, 14 files
+
+Important Agent package naming considerations
+---------------------------------------------
+In VOLTTRON version before 10x (i.e. monolithic volttron) each instance of agent got installed within a unique directory
+within $VOLTTRON_HOME/agent - ie. each agent instance had a copy of its own source code and data directory. In
+VOLTTRON >= 10x, agent source code is separated from data. This necessitates important development considerations for
+agents.
+
+In modular VOLTTRON(>=10x) agents source code are deployed within the python environment in which VOLTTRON is run.
+**This requires that the source packages to have unique namespaces** at least within the agents installed in a single
+instance of VOLTTRON. All volttron core package have "volttron" as the top level package.
+**Individual agents SHOULD not use volttron as their top package** to avoid namespace collisions (i.e overwriting of
+installed code). All volttron core agents have agent name as the top level package name. For examples, historians
+have "historian" as the top package and "historian_type(sqlite/postgresql)" as the next level package. We recommend
+all agents have a unique top level source package or "your institution name"/"agent name" as the top two level source
+package
+
 
 Setting up agent environment
 ----------------------------
@@ -936,49 +950,8 @@ Each function within an agent should validate its input parameters, especially w
    It is possible to restrict access to RPC functions using an :ref:`agent's authentication <Agent-Authentication>`
    capabilities.
 
-
-Packaging Configuration
-=======================
-
-The wizard will automatically create a `setup.py` file. This file sets up the name, version, required packages, method
-to execute, etc. for the agent based on your answers to the wizard. The packaging process will also use this
-information to name the resulting file.
-
-.. code-block:: python
-
-    from setuptools import setup, find_packages
-
-    MAIN_MODULE = 'agent'
-
-    # Find the agent package that contains the main module
-    packages = find_packages('.')
-    agent_package = 'tester'
-
-    # Find the version number from the main module
-    agent_module = agent_package + '.' + MAIN_MODULE
-    _temp = __import__(agent_module, globals(), locals(), ['__version__'], -1)
-    __version__ = _temp.__version__
-
-    # Setup
-    setup(
-        name=agent_package + 'agent',
-        version=__version__,
-        author_email="volttron@pnnl.gov",
-        url="https://volttron.org/",
-        description="Agent development tutorial.",
-        author="VOLTTRON Team",
-        install_requires=['volttron'],
-        packages=packages,
-        entry_points={
-            'setuptools.installation': [
-                'eggsecutable = ' + agent_module + ':main',
-            ]
-        }
-    )
-
-
-Launch Configuration
-====================
+Agent Configuration
+===================
 
 In TestAgent, the wizard will automatically create a JSON file called "config". It contains configuration information
 for the agent.  This file contains examples of every data type supported by the configuration system:
@@ -997,6 +970,85 @@ for the agent.  This file contains examples of every data type supported by the 
     }
 
 
+Packaging Configuration
+=======================
+
+The wizard will automatically create a `pyproject.toml` file. This file sets up the name, version, required packages,
+method to execute, etc. for the agent based on your answers to the wizard.
+
+.. code-block::
+
+    [tool.poetry]
+    name = "exampleagent"
+    version = "0.1.0"
+    description = "Example Agent"
+    authors = ["Kefei Mo <kefei.mo@pnnl.gov>"]
+    license = "Apache License 2.0"
+    readme = "README.md"
+    repository = "https://github.com/kefeimo/exampleagent"
+    homepage = "https://github.com/kefeimo/exampleagent"
+    keywords = []
+    packages = [ { include = "exampleagent", from = "src" } ]
+    classifiers = [
+        "Programming Language :: Python :: 3 :: Only",
+        "Intended Audience :: Science/Research",
+        "Intended Audience :: Information Technology",
+        "Intended Audience :: Developers",
+        "Intended Audience :: Other Audience",
+        "License :: OSI Approved :: Apache Software License"
+    ]
+    [tool.poetry.dependencies]
+    python = ">=3.10,<4.0"
+    volttron = "^10.0.3a16"
+
+    [tool.poetry.dev-dependencies]
+    # formatting, quality, tests
+    pytest = "^6.2.5"
+    mock = "^4.0.3"
+    pre-commit = "^2.17.0"
+    yapf = "^0.32.0"
+    toml = "^0.10.2"
+    isort = "^5.10.1"
+    safety = "^1.10.3"
+    mypy = "^0.942"
+    coverage = "^6.3.2"
+    Sphinx = "^4.5.0"
+    sphinx-rtd-theme = "^1.0.0"
+
+    [tool.yapfignore]
+    ignore_patterns = [
+        ".venv/**",
+        ".pytest_cache/**",
+        "dist/**",
+        "docs/**"
+    ]
+
+    [tool.yapf]
+    based_on_style = "pep8"
+    spaces_before_comment = 4
+    column_limit = 99
+    split_before_logical_operator = true
+
+    [tool.poetry.scripts]
+    exampleagent = "exampleagent.agent:main"
+
+    [build-system]
+    requires = ["poetry-core>=1.2.0"]
+    build-backend = "poetry.core.masonry.api"
+
+Local agent package install
+===========================
+
+Once you have the pyproject.toml file updated with agent dependencies you can check if there are any version mismatch
+in your dependencies or other python package issues by running a `poetry install` from the agent's root directory.
+
+.. code-block::
+    # creates a virtual environment and pulls all the dependencies within that environment
+    poetry install
+
+    # Creates a shell and activate the environment. You can start volttron within this virtual environment
+    poetry shell
+
 .. _Agent-Packaging-and-Install:
 
 Agent Installation
@@ -1006,21 +1058,30 @@ To install the agent the platform must be running. Start the platform with the c
 
 .. code-block:: bash
 
-    volttron
+    volttron -v -l volttron.log &
 
 .. note::
 
-    If you are not in an activated environment, this script will start the platform running in the background in the
-    correct environment. However the environment will not be activated for you; you must activate it yourself.
+    The above command can be run within the activated poetry virtual environment of your agent (as described in previous
+    section or if you have installed VOLTTRON in a different python environment, you can activate that environment and
+    start volttron within that.
 
-Now we must install it into the platform. Use the following command to install it and add a tag for easily referring to
+Now install agent into the platform. Use the following command to install it and add a tag for easily referring to
 the agent. From the project directory, run the following command:
 
 .. code-block:: bash
 
+    vctl install <root folder of ExampleAgent> --agent-config <path-to-config> --tag <tag name> --vip-identity <vipid>
 
+The above command does two things
+    1. It installs the agent's source package as wheel file within the given python environment. If agent already exists
+       this step is skipped. The agent source code is shared between multiple instance of an agent.
+    2. It creates a unique agent vip identity directory under $VOLTTRON_HOME/agents this specific instance of the agent.
+       This contains the data unique to this instance of the agent (agent's config file, data files
+       generated etc). We highly recommend that agents write data to only its data directory -
+       i.e. $VOLTTRON_HOME/agents/<vip-id>/data
 
-To verify it has been installed, use the following command:
+To verify agent has been installed, use the following command:
 
 .. code-block:: bash
 
@@ -1064,7 +1125,7 @@ With the VOLTTRON environment activated, start the platform by running (if neede
 
 .. code-block:: bash
 
-    ./start-volttron
+    volttron -v -l volttron.log &
 
 You can launch the agent in three ways, all of which you can find by using the `vctl list` command:
 
@@ -1114,85 +1175,11 @@ VOLTTRON uses *pytest* as a framework for executing tests.  All unit tests shoul
 For instructions on writing unit and integration tests with *pytest*, refer to the
 :ref:`Writing Agent Tests <Writing-Agent-Tests>` documentation.
 
-*pytest* is not installed with the distribution by default. To install py.test and it's dependencies execute the
-following:
-
-.. code-block:: bash
-
-    python bootstrap.py --testing
-
-.. note::
-
-  There are other options for different agent requirements.  To see all of the options use:
-
-  .. code-block:: bash
-
-      python bootstrap.py --help
-
-  in the Extra Package Options section.
-
 To run a single test module, use the command
 
 .. code-block:: bash
 
     pytest <testmodule.py>
-
-To run all of the tests in the volttron repository execute the following in the root directory using an activated
-command prompt:
-
-.. code-block:: bash
-
-    ./ci-integration/run-tests.sh
-
-
-.. _Utility-Scripts:
-
-Scripts
-=======
-
-In order to make repetitive tasks less repetitive the VOLTTRON team has create several scripts in order to help.  These
-tasks are available in the `scripts` directory.
-
-.. note::
-
-    In addition to the `scripts` directory, the VOLTTRON team has added the config directory to the .gitignore file.  By
-    convention this is where we store customized scripts and configuration that will not be made public.  Please feel
-    free to use this convention in your own processes.
-
-The `scripts/core` directory is laid out in such a way that we can build scripts on top of a base core.  For example the
-scripts in sub-folders such as the `historian-scripts` and `demo-comms` use the scripts that are present in the core
-directory.
-
-The most widely used script is `scripts/install-agent.py`.  The `install_agent.py` script will remove an agent if the
-tag is already present, create a new agent package, and install the agent to :term:`VOLTTRON_HOME`.  This script has
-three required arguments and has the following signature:
-
-.. note::
-
-    Agent to Package must have a setup.py in the root of the directory.  Additionally, the user must be in an activated
-    Python Virtual Environment for VOLTTRON
-
-    .. code-block:: bash
-
-      cd $VOLTTRON_ROOT
-      source env/bin/activate
-
-.. code-block:: console
-
-   python scripts/install_agent.py -s <agent path> -c <agent config file> -i <agent VIP identity> --tag <Tag>
-
-.. note::
-
-   The ``--help`` optional argument can be used with `scripts/install-agent.py` to view all available options for the
-   script
-
-The `install_agent.py` script will respect the `VOLTTRON_HOME` specified on the command line or set in the global
-environment.  An example of setting `VOLTTRON_HOME` to `/tmp/v1home` is as follows.
-
-.. code-block:: bash
-
-    VOLTTRON_HOME=/tmp/v1home python scripts/install-agent.py -s <Agent to Package> -c <Config file> --tag <Tag>
-
 
 .. toctree::
    :hidden:
@@ -1203,8 +1190,15 @@ environment.  An example of setting `VOLTTRON_HOME` to `/tmp/v1home` is as follo
    documenting-agents
    using-asyncio-in-agents
 
-..
+Uninstall Agent
+----------------
 
-   developing-historian-agents  - should point to externally pulled in data
-   example-agents/index - should point to data pulled from different repo at a later point
+To uninstall a agent use the below vctl command.
 
+.. code-block::
+
+    vctl remove <uuid>
+
+If there is only a single instance of an agent installed, the above command will remove both the source package from
+the python environment and the agent directory from $VOLTTRON_HOME/agents. If there is more than one instance of the
+agent, only the $VOLTTRON_HOME/agents/<agent vip id> directory is removed
