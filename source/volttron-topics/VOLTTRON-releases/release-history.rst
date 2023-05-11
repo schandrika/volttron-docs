@@ -1,8 +1,8 @@
 .. _Release-History:
 
-===============
-Release History
-===============
+===================================
+Release History Monolithic VOLTTRON
+===================================
 
 VOLTTRON Release Documentation for version 5.1.0 and above is found on GitHub.
 `https://github.com/VOLTTRON/volttron/releases <https://github.com/VOLTTRON/volttron/releases>`_
