@@ -8,6 +8,24 @@ To develop a new agent that works with the modular VOLTTRON code, a developer ne
 The developer only needs a VOLTTRON setup as described in :ref:`platform installation <Platform-Installation>`. Users
 can then use a template agent to create a starting point that can be modified for their specific use case
 
+Important Agent package naming considerations
+=============================================
+
+In VOLTTRON version before 10x (i.e. monolithic volttron) each instance of agent got installed within a unique directory
+within $VOLTTRON_HOME/agent - ie. each agent instance had a copy of its own source code and data directory. In
+VOLTTRON >= 10x, agent source code is separated from data. This necessitates important development considerations for
+agents.
+
+In modular VOLTTRON(>=10x) agents source code are deployed within the python environment in which VOLTTRON is run.
+**This requires that the source packages to have unique namespaces** at least within the agents installed in a single
+instance of VOLTTRON. All volttron core package have "volttron" as the top level package.
+**Individual agents SHOULD not use volttron as their top package** to avoid namespace collisions (i.e overwriting of
+installed code). All volttron core agents have agent name as the top level package name. For examples, historians
+have "historian" as the top package and "historian_type(sqlite/postgresql)" as the next level package. We recommend
+all agents have a unique top level source package or "your institution name"/"agent name" as the top two level source
+package
+
+
 Create Agent Code using copier
 ==============================
 
@@ -195,23 +213,6 @@ The above command would have created a ExampleAgent directory with the following
         ├── conftest.py
         └── test_cli.py
     6 directories, 14 files
-
-Important Agent package naming considerations
----------------------------------------------
-In VOLTTRON version before 10x (i.e. monolithic volttron) each instance of agent got installed within a unique directory
-within $VOLTTRON_HOME/agent - ie. each agent instance had a copy of its own source code and data directory. In
-VOLTTRON >= 10x, agent source code is separated from data. This necessitates important development considerations for
-agents.
-
-In modular VOLTTRON(>=10x) agents source code are deployed within the python environment in which VOLTTRON is run.
-**This requires that the source packages to have unique namespaces** at least within the agents installed in a single
-instance of VOLTTRON. All volttron core package have "volttron" as the top level package.
-**Individual agents SHOULD not use volttron as their top package** to avoid namespace collisions (i.e overwriting of
-installed code). All volttron core agents have agent name as the top level package name. For examples, historians
-have "historian" as the top package and "historian_type(sqlite/postgresql)" as the next level package. We recommend
-all agents have a unique top level source package or "your institution name"/"agent name" as the top two level source
-package
-
 
 Setting up agent environment
 ----------------------------
