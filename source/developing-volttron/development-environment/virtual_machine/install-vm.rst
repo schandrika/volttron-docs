@@ -4,21 +4,21 @@
 Installing a Linux Virtual Machine
 ==================================
 
-VOLTTRON requires a Linux system to run. For Windows users this will require a virtual machine (VM).
+VOLTTRON requires a Linux system to run. For Windows users this will require a virtual machine (VM), a docker container,
+or a WSL2 environment
 
-This section describes the steps necessary to install
-VOLTTRON using Oracle VirtualBox software. Virtual Box is free and can be downloaded from
-https://www.virtualbox.org/wiki/Downloads.
+This section describes the steps necessary to install VOLTTRON using Oracle VirtualBox software. Virtual Box is
+free and can be downloaded from https://www.virtualbox.org/wiki/Downloads.
 
 |VirtualBox Download|
 
 .. |VirtualBox Download| image:: files/vbox-download.png
 
-After installing VirtualBox download a virtual box appliance from https://www.osboxes.org/linux-mint/ extract the
-VDI from the downlaoded archive, **or** download a system installation disk. VOLTTRON version 7.0.x has been tested
-using Ubuntu 18.04, 18.10; Linux Mint 19; VOLTTRON version 6.0.x has been tested with Ubuntu 16.04, 18.04. However,
-any modern apt based Linux distribution should work out of the box. Linux Mint 19.3 with the Xfce desktop is used
-as an example, however platform setup in Ubuntu should be identical.
+After installing VirtualBox download a virtual box appliance from https://www.osboxes.org/ extract the
+VDI from the downloaded archive, **or** download a system installation disk. VOLTTRON version 10.x has been tested
+using Ubuntu 22.04. However, any modern apt based Linux distribution should work out of the box.
+
+Linux Mint 19.3 with the Xfce desktop is used as an example, however platform setup in Ubuntu should be identical.
 
 .. note::
 

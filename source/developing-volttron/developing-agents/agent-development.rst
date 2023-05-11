@@ -1,7 +1,7 @@
 .. _Agent-Development:
 
 =================
-Agent Development - TODO
+Agent Development
 =================
 
 needs update. Has lots of good content about general agent dev but should reword could we update vpkg for modular
