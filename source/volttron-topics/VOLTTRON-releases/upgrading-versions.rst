@@ -1,8 +1,17 @@
 .. _Upgrading-Versions:
 
-==============================
-Upgrading Existing Deployments
-==============================
+================
+Modular VOLTTRON
+================
+Modular VOLTTRON (version >= 10x) is different in design from monolithic VOLTTRON and does not provide backward
+compatibility. Hence there is no automatic upgrade path from VOLTTRON version<10 to VOLTTRON version>=10.
+
+Users should do a clean install of VOLTTRON>=10 and point to a new VOLTTRON_HOME. VOLTTRON_HOME used with
+VOLTTRON version<10 **cannot** be used for modular VOLTTRON.
+
+=================================
+Upgrading Monolithic Deployments
+=================================
 
 It is often recommended that users upgrade to the latest stable release of VOLTTRON for their deployments.  Major
 releases include helpful new features, bug fixes, and other improvements.  Please see the guides below for upgrading

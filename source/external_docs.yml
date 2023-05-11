@@ -1,0 +1,63 @@
+#
+# Format
+#
+#<volttron-agent-name or volttron-library-name>:
+#    # optional path to repo.
+#    # if not provided default would be "https://github.com/eclipse-volttron/" + agent/library name(parent element)
+#    repo: https://github.com/schandrika/test_agent_docs
+#    # branch or tag that should get pulled. should be valid value to be used wtih git checkout. ex. branch, tag
+#    version: main
+#    # optional docs directory. defaults to "docs/source" under root
+#    docs_dir: docs/source
+
+volttron-lib-base-historian:
+    repo: https://github.com/eclipse-volttron/volttron-lib-base-historian
+    version: develop
+
+volttron-lib-sql-historian:
+    repo: https://github.com/eclipse-volttron/volttron-lib-sql-historian
+    version: develop
+
+volttron-sqlite-historian:
+    repo: https://github.com/eclipse-volttron/volttron-sqlite-historian
+    version: develop
+
+volttron-postgresql-historian:
+    repo: https://github.com/eclipse-volttron/volttron-postgresql-historian
+    version: develop
+
+volttron-actuator:
+    repo: https://github.com/eclipse-volttron/volttron-actuator
+    version: develop
+
+volttron-platform-driver:
+    repo: https://github.com/eclipse-volttron/volttron-platform-driver
+    version: develop
+
+volttron-bacnet-proxy:
+    repo: https://github.com/eclipse-volttron/volttron-bacnet-proxy
+    version: develop
+
+volttron-lib-bacnet-driver:
+    repo: https://github.com/eclipse-volttron/volttron-lib-bacnet-driver
+    version: develop
+
+volttron-lib-base-driver:
+    repo: https://github.com/eclipse-volttron/volttron-lib-base-driver
+    version: develop
+
+volttron-lib-fake-driver:
+    repo: https://github.com/eclipse-volttron/volttron-lib-fake-driver
+    version: develop
+
+volttron-lib-modbus-driver:
+    repo: https://github.com/eclipse-volttron/volttron-lib-modbus-driver
+    version: develop
+
+volttron-lib-modbustk-driver:
+    repo: https://github.com/eclipse-volttron/volttron-lib-modbustk-driver
+    version: develop
+
+volttron-lib-web:
+    repo: https://github.com/eclipse-volttron/volttron-lib-web
+    version: develop

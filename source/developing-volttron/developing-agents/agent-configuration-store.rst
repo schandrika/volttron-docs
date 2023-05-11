@@ -1,11 +1,9 @@
 .. _Agent-Configuration-Store-Interface:
 
 ===================================
-Agent Configuration Store Interface  - TODO
+Agent Configuration Store Interface
 ===================================
 
-update example with correct packages imports
----------------------------------------------
 The Agent Configuration Store Subsystem provides an interface for facilitating dynamic configuration via
 the platform configuration store. It is intended to work alongside the original configuration file
 to create a backwards compatible system for configuring agents with the bundled configuration file acting
@@ -145,7 +143,7 @@ in the store for retrieval at startup with the `self.vip.config.get` method.
 
 Optionally an agent may trigger any callbacks by setting `trigger_callback` to True. If `trigger_callback` is
 set to False the platform will still send the updated configuration back to the agent. This ensures that a subsequent
-call to `self.cip.config.get` will still return the correct value. This way the agent's configuration subsystem
+call to `self.vip.config.get` will still return the correct value. This way the agent's configuration subsystem
 is kept in sync with the platform's copy of the agent's configuration store at all times.
 
 Optionally the agent may prevent the platform from sending the updated file to the agent by setting `send_update`

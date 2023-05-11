@@ -76,7 +76,7 @@ The auth file should not be modified directly.
 To change the auth file, use ``vctl auth`` subcommands: ``add``,
 ``list``, ``remove``, and ``update``. (Run ``vctl auth --help``
 for more details and see the 
-:ref:`authentication commands documentation <Agent-Authentication-Commands>`.)
+:ref:`authentication commands documentation <VCTL-Auth-Commands>`.)
 
 Here are some example entries::
 

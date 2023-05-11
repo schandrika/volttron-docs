@@ -151,7 +151,6 @@ Commands
 - **tag AGENT TAG** - set, show, or remove agent tag for a particular agent
 - **remove AGENT** - disconnect specified agent from the platform and remove its installed agent package from `VOLTTRON_HOME`
 - **peerlist** - list the peers connected to the platform
-- **list** - list installed agents
 - **status** - show status of installed agents
 - **health AGENT** - show agent health as JSON
 - **clear** - clear status of defunct agents
