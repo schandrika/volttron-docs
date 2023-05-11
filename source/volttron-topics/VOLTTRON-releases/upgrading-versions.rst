@@ -4,9 +4,10 @@
 Modular VOLTTRON
 ================
 Modular VOLTTRON (version >= 10x) is different in design from monolithic VOLTTRON and does not provide backward
-compatibility. Hence there is no automatic upgrade path from VOLTTRON version<10 to VOLTTRON version>=10. Users should
-do a clean install of VOLTTRON>10 and point to a new VOLTTRON_HOME. VOLTTRON_HOME used with VOLTTRON version<10
-**cannot** be used for modular VOLTTRON.
+compatibility. Hence there is no automatic upgrade path from VOLTTRON version<10 to VOLTTRON version>=10.
+
+Users should do a clean install of VOLTTRON>=10 and point to a new VOLTTRON_HOME. VOLTTRON_HOME used with
+VOLTTRON version<10 **cannot** be used for modular VOLTTRON.
 
 =================================
 Upgrading Monolithic Deployments
