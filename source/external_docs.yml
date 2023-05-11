@@ -11,49 +11,53 @@
 #    docs_dir: docs/source
 
 volttron-lib-base-historian:
-    repo: https://github.com/schandrika/volttron-lib-base-historian
-    version: docs
+    repo: https://github.com/eclipse-volttron/volttron-lib-base-historian
+    version: develop
 
 volttron-lib-sql-historian:
-    repo: https://github.com/schandrika/volttron-lib-sql-historian
-    version: docs
+    repo: https://github.com/eclipse-volttron/volttron-lib-sql-historian
+    version: develop
 
 volttron-sqlite-historian:
-    repo: https://github.com/schandrika/volttron-sqlite-historian
-    version: docs
+    repo: https://github.com/eclipse-volttron/volttron-sqlite-historian
+    version: develop
+
+volttron-postgresql-historian:
+    repo: https://github.com/eclipse-volttron/volttron-postgresql-historian
+    version: develop
 
 volttron-actuator:
-    repo: https://github.com/davidraker/volttron-actuator
-    version: docs
+    repo: https://github.com/eclipse-volttron/volttron-actuator
+    version: develop
 
 volttron-platform-driver:
-    repo: https://github.com/davidraker/volttron-platform-driver
-    version: docs
+    repo: https://github.com/eclipse-volttron/volttron-platform-driver
+    version: develop
 
 volttron-bacnet-proxy:
-    repo: https://github.com/davidraker/volttron-bacnet-proxy
-    version: docs
+    repo: https://github.com/eclipse-volttron/volttron-bacnet-proxy
+    version: develop
 
 volttron-lib-bacnet-driver:
-    repo: https://github.com/davidraker/volttron-lib-bacnet-driver
-    version: docs
+    repo: https://github.com/eclipse-volttron/volttron-lib-bacnet-driver
+    version: develop
 
 volttron-lib-base-driver:
-    repo: https://github.com/davidraker/volttron-lib-base-driver
-    version: docs
+    repo: https://github.com/eclipse-volttron/volttron-lib-base-driver
+    version: develop
 
 volttron-lib-fake-driver:
-    repo: https://github.com/davidraker/volttron-lib-fake-driver
-    version: docs
+    repo: https://github.com/eclipse-volttron/volttron-lib-fake-driver
+    version: develop
 
 volttron-lib-modbus-driver:
-    repo: https://github.com/davidraker/volttron-lib-modbus-driver
-    version: docs
+    repo: https://github.com/eclipse-volttron/volttron-lib-modbus-driver
+    version: develop
 
 volttron-lib-modbustk-driver:
-    repo: https://github.com/davidraker/volttron-lib-modbustk-driver
-    version: docs
+    repo: https://github.com/eclipse-volttron/volttron-lib-modbustk-driver
+    version: develop
 
 volttron-lib-web:
-    repo: https://github.com/davidraker/volttron-lib-web
-    version: docs
+    repo: https://github.com/eclipse-volttron/volttron-lib-web
+    version: develop
