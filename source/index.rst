@@ -112,6 +112,7 @@ and quaterly user meetings. To be invited to office-hours, please `send the team
    :glob:
 
    SQLiteHistorian <external-docs/volttron-sqlite-historian/docs/source/index>
+   PostgresqlHistorian <external-docs/volttron-postgresql-historian/docs/source/index>
 
 .. toctree::
    :caption: VOLTTRON Releases
