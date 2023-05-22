@@ -3,8 +3,6 @@
 ==================
 Join the Community
 ==================
-The VOLTTRON project is transitioning into the Eclipse Foundation as Eclipse VOLTTRON. Current resources will still
-be used during this time. Please watch this space!
 
 The Eclipse VOLTTRON team aims to work with users and contributors to continuously improve the platform with features
 requested by the community as well as architectural features that improve robustness, security, and scalability.
@@ -14,7 +12,7 @@ To learn more, check out :ref:`Contributing <Contributing-Code>` and :ref:`Docum
 Mailing List
 ============
 
-Join the mailing list by emailing `volttron-dev@eclipse.org <mailto:volttron-dev@eclipse.org?subject=Subscribe%20To%20List>`__.
+Join the mailing list at `https://accounts.eclipse.org/mailing-list/volttron-dev <https://accounts.eclipse.org/mailing-list/volttron-dev>`__.
 
 
 Stack Overflow
