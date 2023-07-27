@@ -23,6 +23,8 @@ conventions for communicating in the VOLTTRON are:
 
 Agents should set the `From` header.  This will allow agents to filter on the `To` message sent back.
 
+Agents publish and subscribe to one or more topics using the various apis provided by VOLTTRON
+VIP's :ref:`pubsub subsystem <vip-pubsub-subsystem>`
 
 Topics
 ======
@@ -38,6 +40,7 @@ In Agents
 ---------
    Each agent might use a specific base topic and more specific subtopics for different purposes.
    For example, platform driver agent uses **devices** as the base topic for data being published by drivers
+
 
 
 .. |VOLTTRON| unicode:: VOLTTRON U+2122

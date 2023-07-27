@@ -11,6 +11,11 @@ systems for sensing and control applications.  It is built on extensible framewo
 expand the capabilities of the platform to meet their use cases.  Features are implemented as loosely coupled software
 components, called agents, enabling flexible deployment options and easy customization.
 
+The VOLTTRON project is now officially part of the Eclipse Foundation. Being part of the foundation provides the
+governance and support infrastructure to build a vendor-neutral, open source ecosystem that gives all stakeholders the
+opportunity to contribute and set technical direction. All new development and releases will be done through the
+Eclipse VOLTTRON project. Refer to :ref:`Community Engagement<Community>` to find the different ways to be a part of,
+and engage with the Eclipse VOLTTRON community.
 
 Key Use-Cases
 =============
@@ -80,6 +85,7 @@ and quaterly user meetings. To be invited to office-hours, please `send the team
    agent-framework/platform-service-standardization
    external-docs/volttron-platform-driver/docs/source/index
    external-docs/volttron-lib-base-historian/docs/source/index
+   external-docs/volttron-lib-tagging/docs/source/index
 
 .. toctree::
    :caption: Developing in VOLTTRON
@@ -113,6 +119,7 @@ and quaterly user meetings. To be invited to office-hours, please `send the team
 
    SQLiteHistorian <external-docs/volttron-sqlite-historian/docs/source/index>
    PostgresqlHistorian <external-docs/volttron-postgresql-historian/docs/source/index>
+   SQLiteTaggingAgent <external-docs/volttron-sqlite-tagging/docs/source/index>
 
 .. toctree::
    :caption: VOLTTRON Releases
