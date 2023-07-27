@@ -80,6 +80,7 @@ and quaterly user meetings. To be invited to office-hours, please `send the team
    agent-framework/platform-service-standardization
    external-docs/volttron-platform-driver/docs/source/index
    external-docs/volttron-lib-base-historian/docs/source/index
+   external-docs/volttron-lib-tagging/docs/source/index
 
 .. toctree::
    :caption: Developing in VOLTTRON
@@ -113,6 +114,7 @@ and quaterly user meetings. To be invited to office-hours, please `send the team
 
    SQLiteHistorian <external-docs/volttron-sqlite-historian/docs/source/index>
    PostgresqlHistorian <external-docs/volttron-postgresql-historian/docs/source/index>
+   SQLiteTaggingAgent <external-docs/volttron-sqlite-tagging/docs/source/index>
 
 .. toctree::
    :caption: VOLTTRON Releases

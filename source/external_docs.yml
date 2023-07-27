@@ -61,3 +61,11 @@ volttron-lib-modbustk-driver:
 volttron-lib-web:
     repo: https://github.com/eclipse-volttron/volttron-lib-web
     version: develop
+
+volttron-lib-tagging:
+    repo: https://github.com/eclipse-volttron/volttron-lib-tagging
+    version: develop
+
+volttron-sqlite-tagging:
+    repo: https://github.com/eclipse-volttron/volttron-sqlite-tagging
+    version: develop
