@@ -20,7 +20,7 @@ exchange.
 .. toctree::
    :caption: VIP Topics
 
-   vip-pubsub
+   vip-pubsub-subsystem
    vip-json-rpc
    vip-known-identities
    vip-authentication
