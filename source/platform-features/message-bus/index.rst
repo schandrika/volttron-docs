@@ -5,7 +5,7 @@ Message Bus
 ===========
 
 The VOLTTRON message bus is the mechanism responsible for enabling communication between agents, drivers, and platform
-instances.  The message bus supports communication using the :ref:`Publish/Subscribe Paradigm <VIP-Overview>` and
+instances.  The message bus supports communication using the :ref:`Publish/Subscribe Paradigm <vip-pubsub-subsystem>` and
 :ref:`JSON RPC <Remote-Procedure-Calls>`.
 Currently VOLTTRON may be configured to use only Zero MQ as message bus. We are working on porting RabbitMQ
 support from monolithic version of VOLTTRON(version < 10) to the latest modular version of VOLTTRON(version>=10)

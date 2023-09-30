@@ -20,6 +20,7 @@ exchange.
 .. toctree::
    :caption: VIP Topics
 
+   vip-pubsub-subsystem
    vip-json-rpc
    vip-known-identities
    vip-authentication
@@ -262,9 +263,11 @@ An error message must contain the following:
 Subsystems
 ==========
 
-Peers may support any number of communications protocols or subsystems. For instance, there may be a remote procedure
-call (RPC) subsystem which defines its own protocol.  These subsystems are outside the scope of VIP and this document
-with the exception of the *hello* and *ping* subsystems.
+Peers may support any number of communications protocols or subsystems. A subsystem is a point to point protocol that
+defines a function or set of related functions and dictates the message format that follows the name of the subsystem
+in a VIP message. For instance, there may be a remote procedure call (RPC) subsystem which defines its own protocol.
+The following subsections use the *hello* and *ping* subsystems to explain how subsystem are defined and used within
+VOLTTRON.
 
 * A router SHALL implement the hello subsystem.
 * All peers and routers SHALL implement the ping subsystem.
