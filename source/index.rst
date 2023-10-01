@@ -117,9 +117,21 @@ and quaterly user meetings. To be invited to office-hours, please `send the team
    :maxdepth: 2
    :glob:
 
-   SQLiteHistorian <external-docs/volttron-sqlite-historian/docs/source/index>
-   PostgresqlHistorian <external-docs/volttron-postgresql-historian/docs/source/index>
-   SQLiteTaggingAgent <external-docs/volttron-sqlite-tagging/docs/source/index>
+   SQLiteHistorian <external-docs/volttron-sqlite-historian/index>
+   PostgresqlHistorian <external-docs/volttron-postgresql-historian/index>
+   SQLiteTaggingAgent <external-docs/volttron-sqlite-tagging/index>
+
+.. toctree::
+   :caption: VOLTTRON Application Agents
+   :hidden:
+   :titlesonly:
+   :maxdepth: 2
+   :glob:
+
+   BOPTest <external-docs/volttron-boptest-agent/index>
+   BOPTestIntegrationLibrary <external-docs/volttron-lib-boptest-integration/index>
+   Intelligent Load Controller <external-docs/volttron-ilc/index>
+   Economizer RCx <external-docs/volttron-economizer-rcx/index>
 
 .. toctree::
    :caption: VOLTTRON Releases
