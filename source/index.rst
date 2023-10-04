@@ -128,8 +128,6 @@ and quaterly user meetings. To be invited to office-hours, please `send the team
    :maxdepth: 2
    :glob:
 
-   BOPTest <external-docs/volttron-boptest-agent/index>
-   BOPTestIntegrationLibrary <external-docs/volttron-lib-boptest-integration/index>
    Intelligent Load Controller <external-docs/volttron-ilc/index>
    Economizer RCx <external-docs/volttron-economizer-rcx/index>
 
