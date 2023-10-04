@@ -73,7 +73,7 @@ and quaterly user meetings. To be invited to office-hours, please `send the team
    platform-features/control/index
    platform-features/config-store/configuration-store
    platform-features/security/volttron-security
-   external-docs/volttron-lib-web/docs/source/index
+   external-docs/volttron-lib-web/index
 
 .. toctree::
    :caption: Agent Framework
@@ -83,9 +83,9 @@ and quaterly user meetings. To be invited to office-hours, please `send the team
 
    agent-framework/agents-overview
    agent-framework/platform-service-standardization
-   external-docs/volttron-platform-driver/docs/source/index
-   external-docs/volttron-lib-base-historian/docs/source/index
-   external-docs/volttron-lib-tagging/docs/source/index
+   external-docs/volttron-platform-driver/index
+   external-docs/volttron-lib-base-historian/index
+   external-docs/volttron-lib-tagging/index
 
 .. toctree::
    :caption: Developing in VOLTTRON
