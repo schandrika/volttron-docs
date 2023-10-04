@@ -231,17 +231,20 @@ def generate_agent_docs(app):
     os.makedirs(external_docs_root)
     external_data = _read_config(filename=os.path.join(script_dir, "external_docs.yml"))
     repo_prefix = "https://github.com/eclipse-volttron/"
-    for agent_or_lib_name in external_data:
-        agent_repo = external_data[agent_or_lib_name].get("repo")
+    for project_name in external_data:
+        agent_repo = external_data[project_name].get("repo")
         if not agent_repo:
-            agent_repo = repo_prefix + agent_or_lib_name
-        subprocess.check_call(["git", "clone", "--no-checkout", agent_repo], cwd=external_docs_root)
+            agent_repo = repo_prefix + project_name
+        subprocess.check_call(["git", "clone", "--no-checkout", agent_repo, project_name + "_docs_root"],
+                              cwd=external_docs_root)
         # for 1st version not doing api-docs. If doing api-docs do full checkout, install requirements, run api-docs
-        clone_dir = os.path.join(external_docs_root, agent_or_lib_name)
-        docs_source_dir = external_data[agent_or_lib_name].get("docs_dir", "docs/source")
+        clone_dir = os.path.join(external_docs_root, project_name + "_docs_root")
+        docs_source_dir = external_data[project_name].get("docs_dir", "docs/source")
         subprocess.check_call(["git", "sparse-checkout", "set", docs_source_dir], cwd=clone_dir)
-        agent_version = external_data[agent_or_lib_name]["version"]
+        agent_version = external_data[project_name]["version"]
         subprocess.check_call(["git", "checkout", agent_version], cwd=clone_dir)
+        doc_index_dir = os.path.join(clone_dir, docs_source_dir)
+        os.symlink(doc_index_dir, os.path.join(external_docs_root, project_name))
 
 
 def clean_agent_docs_rst(app, exception):

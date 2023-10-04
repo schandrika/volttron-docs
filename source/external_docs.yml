@@ -10,6 +10,9 @@
 #    # optional docs directory. defaults to "docs/source" under root
 #    docs_dir: docs/source
 
+
+
+
 volttron-lib-base-historian:
     repo: https://github.com/eclipse-volttron/volttron-lib-base-historian
     version: develop
@@ -68,4 +71,20 @@ volttron-lib-tagging:
 
 volttron-sqlite-tagging:
     repo: https://github.com/eclipse-volttron/volttron-sqlite-tagging
+    version: develop
+
+volttron-boptest-agent:
+    repo: https://github.com/eclipse-volttron/volttron-boptest
+    version: main
+    docs_dir: volttron-boptest-agent/docs/source
+
+volttron-lib-boptest-integration:
+    repo: https://github.com/eclipse-volttron/volttron-boptest
+    version: main
+    docs_dir: volttron-lib-boptest-integration/docs/source
+
+volttron-ilc:
+    version: develop
+
+volttron-economizer-rcx:
     version: develop
