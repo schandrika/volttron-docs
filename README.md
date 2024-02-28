@@ -2,7 +2,7 @@
 
 This repository contains code and documentation that generate modular VOLTTRON core documentation and 
 documentation of agent developed and maintained by core VOLTTRON team. The documents are main available 
-on https://eclipse-volttron.readthedoc.io
+on https://eclipse-volttron.readthedocs.io
 
 ## Building documents locally
 
