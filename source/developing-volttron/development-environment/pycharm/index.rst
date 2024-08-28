@@ -21,8 +21,10 @@ Install Pycharm
 ================
 Pycharm can be installed two ways
   1. Installed within the Ubuntu environment so it access code local to it and renders UI using a X Server.
-  2. Install on Windows host and set it up to connect to remote code in Ubuntu wsl environment. Pycharm professional
-     version might work better for this.
+  2. Install on Windows host and set it up to connect to remote code in Ubuntu wsl environment. For the VOLTTRON 
+     use case, only Pycharm professional version would work for this type of install. This is because, Pycharm
+     community edition would not allow you to point to a python interpreter within a virtual environment in the 
+     community
 
 Installing pycharm-community on Ubuntu-22
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -47,8 +49,8 @@ Run the following commands to get the pre-requisites for installing and running 
    ``alias pycharm='/home/user1/pycharm-community-2024.2/bin/pycharm 1>/dev/null 2>&1 &'``
 
 
-Installing pycharm-community on Windows and opening remote code
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Installing pycharm professional on Windows and opening remote code
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 TODO: Riley ?
 
