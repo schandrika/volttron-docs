@@ -53,16 +53,19 @@ Installing pycharm professional on Windows and opening remote code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. **Download:**
+
 * Open your preferred web browser.
 * Visit the official PyCharm website: [https://www.jetbrains.com/pycharm/download/?section=windows)
 * Under the "Professional" edition, click the "Download" button for Windows.
 * The `.exe` installer file will be downloaded.
 
 2. **Run the Installer:**
+
 * Locate the downloaded file (usually in your "Downloads" folder) and double-click to run it.
 * If prompted by User Account Control, click "Yes" to allow the installer to make changes.
 
 3. **Follow the Setup Wizard:**
+
 * **Welcome Screen:** Click "Next" to continue.
 * **Choose Install Location:** Accept the default location or click "Browse" to choose a different one. Click "Next".
 * **Installation Options:**
@@ -78,6 +81,7 @@ Installing pycharm professional on Windows and opening remote code
     * Click "Finish" to close the installer.
 
 4. **Open PyCharm and access the "Remote Development" menu.**
+
    * Click the "Menu" / "File" button in PyCharm.
    * From the dropdown menu, select "Remote Development."
 
