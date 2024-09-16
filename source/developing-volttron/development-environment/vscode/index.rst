@@ -25,6 +25,8 @@ VSCode can be installed directly on your Windows host and configured to connect 
 - Open VSCode.
 - Use the command palette (`Ctrl+Shift+P`) and select **Remote-WSL: New Window**. This opens a new VSCode window directly connected to your WSL2 environment.
 - Navigate to the folder containing your cloned VOLTTRON repositories by selecting **File > Open Folder** and navigating to your project directory in WSL2.
+Note: if you are working with multiple WSL2 instances, please refer to the official Visual Studio Code documentation on :doc:`Working with multiple WSL2 distributions <remote-wsl>`.
+
 
 VSCode Settings/Configurations
 ==============================
@@ -43,7 +45,7 @@ VSCode Settings/Configurations
 - Your `pyproject.toml` file should be visible at the root of the project, enabling VSCode to recognize project dependencies.
 
 **Environment and Editor Settings in settings.json:**
-The `settings.json` file in VSCode is crucial for customizing the IDE environment to fit the needs of VOLTTRON development. The settings might include paths to data directories, specific Python paths, and integration with GIT features, enhancing workflow efficiency and accessibility.
+The `settings.json` file in VSCode is crucial for customizing the IDE environment to fit the needs of VOLTTRON development. The settings might include paths to data directories, specific Python paths, and integration with GIT features, enhancing workflow efficiency and accessibility. Here is a code snippet example of the `settings.json` configuration. For more details, please see :ref:`deep_dive_into_settings_json`.
 
 .. code-block:: json
     {
@@ -56,27 +58,57 @@ The `settings.json` file in VSCode is crucial for customizing the IDE environmen
     }
 
 **Debugging and Run Configurations in launch.json:**
-The `launch.json` file is used to set up and customize debugging configurations. This file defines how VSCode should launch and debug your VOLTTRON applications, including settings for environment variables, Python paths, and specific commands or scripts to run.
+The `launch.json` file is used to set up and customize debugging configurations. This file defines how VSCode should launch and debug your VOLTTRON applications, including settings for environment variables, Python paths, and specific commands or scripts to run. Here is a code snippet example of the `launch.json` configuration. For more details, please see :ref:`deep_dive_into_launch_json`.
 
 .. code-block:: json
     {
         "configurations": [
             {
-                "name": "Python Debugger: Current File",
-                "type": "debugpy",
+                "name": "volttron -vv",
+                "type": "python",
                 "request": "launch",
-                "program": "${file}",
+                "program": ".venv/bin/volttron",
+                "console": "integratedTerminal",
+                "justMyCode": true,
+                "args": [
+                    "-vv",
+                    "--dev",
+                    "-l",
+                    "volttron.log",
+                    "--log-config",
+                    "logging_config.yaml"
+                ],
                 "env": {
+                    "GEVENT_SUPPORT": "True",
                     "VOLTTRON_HOME": "~/.volttron_redo"
-                }
+                },
+                "cwd": "${workspaceFolder}/volttron-zmq"
             },
             {
                 "name": "launch volttron-listener",
-                "program": "/home/user/repos/volttron-listener/src/listener/agent.py",
+                "type": "debugpy",
+                "request": "launch",
+                "program": "/home/os2204/repos/volttron-redo/volttron-listener/src/listener/agent.py",
+                "console": "integratedTerminal",
+                "python": ".venv/bin/python",
+                "justMyCode": true,
+                "args": [
+                    "-vv",
+                    "--json",
+                    "start",
+                    "volttron-listener-0.2.0rc0"
+                ],
                 "env": {
-                    "VOLTTRON_PLATFORM_ADDRESS": "ipc://@/home/user/.volttron_redo/run/vip.socket"
-                }
-            }
+                    "GEVENT_SUPPORT": "True",
+                    "VOLTTRON_HOME": "~/.volttron_redo",
+                    "AGENT_CREDENTIALS": "/home/os2204/.volttron_redo/credentials_store/volttron-listener-0.2.0rc0_2.json",
+                    "AGENT_VIP_IDENTITY": "volttron-listener",
+                    //"AGENT_VIP_IDENTITY": "volttron-listener-0.2.0rc0_2",
+                    "VOLTTRON_PLATFORM_ADDRESS": "ipc://@/home/os2204/.volttron_redo/run/vip.socket"
+                    //"VOLTTRON_PLATFORM_ADDRESS": "tcp://127.0.0.1:22916"
+                },
+                "cwd": "${workspaceFolder}/volttron-zmq"
+            },
         ]
     }
 
