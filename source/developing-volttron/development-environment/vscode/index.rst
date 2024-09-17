@@ -45,20 +45,27 @@ VSCode Settings/Configurations
 - Your `pyproject.toml` file should be visible at the root of the project, enabling VSCode to recognize project dependencies.
 
 **Environment and Editor Settings in settings.json:**
-The `settings.json` file in VSCode is crucial for customizing the IDE environment to fit the needs of VOLTTRON development. The settings might include paths to data directories, specific Python paths, and integration with GIT features, enhancing workflow efficiency and accessibility. Here is a code snippet example of the `settings.json` configuration. For more details, please see :ref:`deep_dive_into_settings_json`.
+The `settings.json` file in VSCode is crucial for customizing the IDE environment to fit the needs of VOLTTRON development. The settings might include paths to data directories, specific Python paths, and integration with GIT features, enhancing workflow efficiency and accessibility. Here is a code snippet example of the `settings.json` configuration.
 
 .. code-block:: json
     {
-        "python.defaultInterpreterPath": "/apps/base/python3.6/bin/python",
         "terminal.integrated.env.linux": {
+            "PYTHONPATH": "${workspaceFolder}/src/:${env:PYTHONPATH}",
             "VOLTTRON_HOME": "/home/${env:USER}/.volttron_modular"
         },
         "editor.formatOnSave": true,
-        "python.analysis.typeCheckingMode": "basic"
+        "python.analysis.typeCheckingMode": "basic",
+        "editor.rulers": [
+            88,
+            120
+        ],
+        "python.analysis.extraPaths": [
+            "${workspaceFolder}src/",
+        ],
     }
 
 **Debugging and Run Configurations in launch.json:**
-The `launch.json` file is used to set up and customize debugging configurations. This file defines how VSCode should launch and debug your VOLTTRON applications, including settings for environment variables, Python paths, and specific commands or scripts to run. Here is a code snippet example of the `launch.json` configuration. For more details, please see :ref:`deep_dive_into_launch_json`.
+The `launch.json` file is used to set up and customize debugging configurations. This file defines how VSCode should launch and debug your VOLTTRON applications, including settings for environment variables, Python paths, and specific commands or scripts to run. Here is a code snippet example of the `launch.json` configuration.
 
 .. code-block:: json
     {
