@@ -8,7 +8,7 @@ Before you can setup pycharm development environment, you need
 
   1. A Linux environment with pre-requisite softwares. Please refer to :ref:`Install virtual machine <Install-VM>`
      or :ref:`WSL2 Ubuntu environment <Install-WSL2-Ubuntu>` to setup one
-  2. Your own fork of relevant volttron repositories cloned in your Linux environment.
+  2. Your own fork of relevant volttron repositories cloned in your Linux environment and poetry environment setup.
      Please refer to :ref:`this doc for details<Fork-Repository>`
 
 Pycharm is an IDE dedicated to developing python projects. It provides coding
@@ -125,8 +125,8 @@ Subsequent instances of Pycharm will automatically load the VOLTTRON project.
 |Load Volttron|
 
 
-Set the Project Interpreter
----------------------------
+**Set the Project Interpreter**
+--------------------------------
 
 If you have already ran ``poetry install --no-root`` on your cloned volttron-zmq source directory, on opening the
 volttron-zmq project in pycharm, pycharm should automatically detect this project as a poetry project and set the
@@ -158,8 +158,8 @@ volttron-core and select "Sources" to mark it as source dir. Repeat the same for
 
 |External dependencies as explicit content root|
 
-Running the VOLTTRON Process
-----------------------------
+**Running the VOLTTRON Process**
+--------------------------------
 
 If you are not interested in running the VOLTTRON process itself in Pycharm then
 this step can be skipped.
