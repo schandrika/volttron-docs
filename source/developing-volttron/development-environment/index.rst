@@ -17,3 +17,4 @@ forked repository, and using an IDE to start volttron process and agents for deb
    fork-repository
    setup-volttron-core
    pycharm/index
+   vscode/index

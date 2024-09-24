@@ -94,21 +94,24 @@ Once you have poetry installed, do the following to start VOLTTRON using cloned 
 
 3. Run ``poetry install`` if you used option a or ``poetry install --no-root`` if you used option b above
 
-4. export VOLTTRON_HOME=/path/to/volttron/home. Note VOLTTRON10 cannot work with volttron home directory used for
-   previous versions of VOLTTRON
+4. export VOLTTRON_HOME=/path/to/volttron/home. **Note: VOLTTRON10 cannot work with volttron home directory used for
+   previous versions of VOLTTRON**
 
-5. Start VOLTTRON in developer mode using --dev option and run it in the backgroun. --dev tells VOLTTRON to use
+5. Start VOLTTRON in developer mode using **--dev** option and run it in the backgroun. --dev tells VOLTTRON to use
    the current poetry project and not create a new one in VOLTTRON_HOME.
-   Example command: ``volttron --dev -vv -l ./volttron.log &`
+   Example command: ``volttron --dev -vv -l ./volttron.log &``
 
-6. To install agents for testing use the vctl install command. This will add the source library of the agent to the
+6. You can check the status by running the command ``vctl status``
+
+7. To install agents for testing use the vctl install command. This will add the source library of the agent to the
    current poetry project and create agent's data directory in $VOLTTRON/agents. You can use vctl install with agent
    library name fro pypi or to a cloned agent repository
 
 Note:
 
 To debug your source code during development, you could run/debug volttron and vctl commands from within an IDE.
-Refer: :ref:`PyCharm development environment <Pycharm-Dev-Environment>`
+Refer: :ref:`PyCharm development environment<Pycharm-Dev-Environment>`
+
 
 Adding and Committing files
 ===========================
