@@ -52,7 +52,59 @@ Run the following commands to get the pre-requisites for installing and running 
 Installing pycharm professional on Windows and opening remote code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-TODO: Riley ?
+1. **Download:**
+
+* Open your preferred web browser.
+* Visit the official PyCharm website: [https://www.jetbrains.com/pycharm/download/?section=windows)
+* Under the "Professional" edition, click the "Download" button for Windows.
+* The `.exe` installer file will be downloaded.
+
+2. **Run the Installer:**
+
+* Locate the downloaded file (usually in your "Downloads" folder) and double-click to run it.
+* If prompted by User Account Control, click "Yes" to allow the installer to make changes.
+
+3. **Follow the Setup Wizard:**
+
+* **Welcome Screen:** Click "Next" to continue.
+* **Choose Install Location:** Accept the default location or click "Browse" to choose a different one. Click "Next".
+* **Installation Options:**
+    * **Create Desktop Shortcut:** Recommended, check this box.
+    * **Update PATH variable (restart needed):** If you want to be able to run PyCharm from the command line, check this box.
+    * **Associate .py files with PyCharm:** Recommended, check this box so PyCharm opens when you double-click Python files.
+    * **Download and install JBR x86:** This is the Java Runtime Environment needed for PyCharm. Leave this checked.
+* Click "Next".
+* **Choose Start Menu Folder:** Accept the default or choose a different one. Click "Install".
+* **Installation Progress:** Wait for the installation to complete.
+* **Completing the Setup Wizard:**
+    * **Run PyCharm:** Check this box if you want to launch PyCharm immediately after installation.
+    * Click "Finish" to close the installer.
+
+4. **Open PyCharm and access the "Remote Development" menu.**
+
+   * Click the "Menu" / "File" button in PyCharm.
+   * From the dropdown menu, select "Remote Development."
+
+|Remote|
+
+5. **Connect to WSL.**
+
+   * In the Remote Development window, choose "Connect to WSL."
+
+6. **Continue the setup process.**
+
+   * Select your desired WSL instance (e.g., Ubuntu).
+   * Specify the path within your WSL environment where you want to store the new project.
+   * PyCharm will establish a connection to your WSL instance and prepare the project environment.
+
+|Remote2|
+
+7. **Your PyCharm IDE is now connected to WSL.**
+
+   * You should see your PyCharm interface with the project open in the WSL environment.
+   * You can access a terminal within PyCharm to interact directly with your Ubuntu/WSL machine.
+
+|Remote3|
 
 
 
@@ -145,4 +197,7 @@ Similarly you can create run configurations for **vctl status**, **vctl install*
 .. |Run Settings| image:: files/06_run_settings.png
 .. |Run Volttron| image:: files/07_run_volttron.png
 .. |Run Volttron Result| image:: files/08_run_volttron_result.png
-
+.. |File Path| image:: files/09_file_path_wsl.png
+.. |Remote| image:: files/pycharmremote.png
+.. |Remote2| image:: files/img_1.png
+.. |Remote3| image:: files/img_2.png
