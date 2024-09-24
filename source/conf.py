@@ -204,10 +204,10 @@ def setup(app):
     :param app:
     """
     # app.connect('builder-inited', generate_apidoc)
-    #app.connect('builder-inited', generate_agent_docs)
+    app.connect('builder-inited', generate_agent_docs)
 
     # app.connect('build-finished', clean_api_rst)
-    #app.connect('build-finished', clean_agent_docs_rst)
+    app.connect('build-finished', clean_agent_docs_rst)
 
 
 script_dir = os.path.dirname(os.path.realpath(__file__))
